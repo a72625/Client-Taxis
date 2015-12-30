@@ -19,67 +19,54 @@ import java.util.logging.Logger;
  */
 public class Client implements Facade {
 
-    private Socket server;
-    BufferedReader in;
-    PrintWriter out;
+    private Socket clientSck;
+    private Connect c;
 
-    public Client(String ip,int port) throws IOException, myException {
+    public Client(String ip, int port) throws IOException, myException {
         try {
-            server = new Socket("localhost", 2000);
+            clientSck = new Socket("localhost", 2000);
         } catch (java.net.ConnectException a) {
             throw new myException("Servidor não está disponivel");
         }
-        in = new BufferedReader(new InputStreamReader(server.getInputStream()));
-        out = new PrintWriter(server.getOutputStream(), true);
+        c = new Connect(clientSck);
     }
 
     @Override
-    public Boolean loginPassageiro(String username,String password) throws myException {
-        out.print(1+","+username+","+password+"");
-        out.flush();
+    public Boolean login(String username, String password) throws myException {
+        boolean resposta = false;
+        c.out.println(1 + "," + username + "," + password);
         try {
-            in.read();
+            resposta = c.response(c.in.readLine());
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public Boolean loginCondutor(String username,String password) throws myException {
-        out.print(2+","+username+","+password+"");
-        out.flush();
-        return true;
-    }
-
-    @Override
     public Boolean addPassageiro(String username, String password) throws myException {
-        out.print(3+","+username+","+password+"");
-        out.flush();
+        c.out.println(3 + "," + username + "," + password);
         return true;
     }
 
     @Override
     public Boolean addCondutor(String username, String password, String mat, String mod) throws myException {
-        out.print(4+" ");
-        out.print(username+" ");
-        out.print(password+" ");
-        out.print(mat+" ");
-        out.print(mod);
-        out.flush();
-        return true;    }
+        c.out.println(3 + "," + username + "," + password + "," + mat + "," + mod);
+        return true;
+    }
 
     @Override
     public Boolean passageiroExiste(String username) throws myException {
-        out.print(5+" ");
+        out.print(5 + " ");
         out.print(username);
         out.flush();
-        return true;    }
+        return true;
+    }
 
     @Override
     public Boolean condutorExiste(String username) throws myException {
-        out.print(6+" ");
+        out.print(6 + " ");
         out.print(username);
         out.flush();
-        return true;    
+        return true;
     }
 }

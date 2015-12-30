@@ -54,8 +54,8 @@ public class Interface {///implements Facede{
             user = is.nextLine();
             System.out.print("Password: ");
             pass = is.nextLine();
-        }while(!f.loginPassageiro(user, pass));
-        System.out.println("login Feito");
+        }while(!f.login(user, pass));
+        //System.out.println("login Feito");
         
         do{
             try{
