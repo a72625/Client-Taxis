@@ -17,7 +17,7 @@ import java.util.Scanner;
  */
 public class Interface {///implements Facede{
 
-    public  Menu menulogreg,menulogop,menuregop; 
+    public  Menu menulogreg,menuregop,menumain; 
     private String user;
     private Facade f;
             
@@ -34,8 +34,8 @@ public class Interface {///implements Facede{
                 switch (menulogreg.getOpcao()) {
                     case 1: login();
                             break;
-                    //case 2: registar();
-                    //        break;
+                    case 2: registar();
+                            break;
                 }
             }catch(myException s){
                 System.err.println(s.getMessage());
@@ -46,23 +46,6 @@ public class Interface {///implements Facede{
     
     protected void login() throws myException{
         
-        do {
-            try{
-                menulogop.executa();
-                switch (menulogop.getOpcao()) {
-                    case 1: loginPassageiro();
-                            break;
-                    case 2: loginCondutor();
-                            break;
-                }
-
-            }catch(myException s){
-                System.err.println(s.getMessage());
-            }
-        } while (menulogop.getOpcao()!=0);
-    }
-    
-    protected void loginPassageiro() throws myException{
         Scanner is = new Scanner(System.in);
         String pass;
         
@@ -73,96 +56,97 @@ public class Interface {///implements Facede{
             pass = is.nextLine();
         }while(!f.loginPassageiro(user, pass));
         System.out.println("login Feito");
-        /*
-        do{
-            try{
-                menumain.executa();
-                switch (menumain.getOpcao()) {
-                    case 1: menuuser(user);
-                            break;
-                    case 2: menuwareh();
-                            break;
-                    case 3: menuamigos(user);
-                }
-
-            }catch(SimpleExeption s){
-                System.err.println(s.getMessage());
-            }
-        } while (menumain.getOpcao()!=0);*/
-    }
-    
-    protected void loginCondutor() throws myException{
-        Scanner is = new Scanner(System.in);
-        String pass;
-        String mat;
-        String mod;
         
         do{
-            System.out.print("Username: ");
-            user = is.nextLine();
-            System.out.print("Password: ");
-            pass = is.nextLine();
-            System.out.println("Matricula");
-            mat = is.nextLine();
-            System.out.println("Modelo");
-            mod = is.nextLine();
-        }while(!f.loginCondutor(user, pass));
-        System.out.println("login Feito");
-        /*
-        do{
             try{
                 menumain.executa();
                 switch (menumain.getOpcao()) {
-                    case 1: menuuser(user);
+                    case 1: solViagem(user);
                             break;
-                    case 2: menuwareh();
+                    case 2: anunDisp(user);
                             break;
-                    case 3: menuamigos(user);
                 }
 
-            }catch(SimpleExeption s){
+            }catch(myException s){
                 System.err.println(s.getMessage());
             }
-        } while (menumain.getOpcao()!=0);*/
+        } while (menumain.getOpcao()!=0);
     }
     
-    /*protected void registar() throws myException{
+    protected void registar(){
+        do{
+            try{
+                menuregop.executa();
+                switch (menuregop.getOpcao()) {
+                    case 1: regPassageiro();
+                            break;
+                    case 2: regCondutor();
+                            break;
+                }
+
+            }catch(myException s){
+                System.err.println(s.getMessage());
+            }
+        } while (menuregop.getOpcao()!=0);
+    }
+    
+    protected void regPassageiro() throws myException{
         Scanner is = new Scanner(System.in);
-        boolean sair=false;
         String usern, pass;
         
         do {
             System.out.print("Username: ");
             usern = is.nextLine();
-
-            if (userExiste(usern)) {
-                System.out.println("Nome de Utilizador ja existente!\n");
-            }
-            else sair=true;
-        } while(!sair);
+        } while(f.passageiroExiste(usern));
         
         System.out.print("Password: ");
         pass = is.nextLine();
         
-        Client novo = new Client(usern, pass);  
-        
-        f.addUser(usern, pass);
-    }*/
+        f.addPassageiro(usern, pass);
+    }
     
+    protected void regCondutor() throws myException{
+        Scanner is = new Scanner(System.in);
+        String usern, pass,mat,mod;
+        
+        do {
+            System.out.print("Username: ");
+            usern = is.nextLine();
+        } while(f.condutorExiste(usern));
+        
+        System.out.print("Password: ");
+        pass = is.nextLine();
+        
+        System.out.print("Matricula: ");
+        mat = is.nextLine();
+        
+        System.out.print("Modelo: ");
+        mod = is.nextLine();
+        
+        f.addCondutor(usern, pass, mat, mod);
+    }
+    
+    protected void solViagem(String user) throws myException{
+        
+    }
+    
+    protected void anunDisp(String user) throws myException{
+        
+    }
     
     protected  void carregarMenus() {
     
-        String[] logreg = {"Login", //login
-                       "Registar"}; //addUser
-        
-        String[] logop = {"Passageiro",
-                        "Condutor"};
+        String[] logreg = {"Login",
+                       "Registar"};
         
         String[] regop = {"Passageiro",
                         "Condutor"};
-    
+        
+        String[] main = {"Solicitar viagem",
+                        "Anunciar disponibilidade"};
+        
         menulogreg = new Menu(logreg);
-        menulogop = new Menu(logop);
         menuregop = new Menu(regop);
+        menumain = new Menu(main);
     }
 }

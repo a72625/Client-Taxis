@@ -14,7 +14,9 @@ import java.io.IOException;
 public class ClientMain{
     
     public static void main(String[] args) throws IOException, myException{
-        Client u = new Client();
+        String ip = args[0];
+        int port = Integer.parseInt(args[1]);
+        Client u = new Client(ip,port);
         Interface ui = new Interface(u);
         ui.start();
     }

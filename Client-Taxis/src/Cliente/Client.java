@@ -21,7 +21,7 @@ public class Client implements Facade {
     BufferedReader in;
     PrintWriter out;
 
-    public Client() throws IOException, myException {
+    public Client(String ip,int port) throws IOException, myException {
         try {
             user = new Socket("localhost", 2000);
         } catch (java.net.ConnectException a) {
@@ -33,26 +33,47 @@ public class Client implements Facade {
 
     @Override
     public Boolean loginPassageiro(String username,String password) throws myException {
-        out.print(1+" ");
-        out.print(username+" ");
-        out.print(password);
+        out.print(1+","+username+","+password+"");
         out.flush();
         return true;
     }
 
     @Override
     public Boolean loginCondutor(String username,String password) throws myException {
-        out.print(2);
+        out.print(2+","+username+","+password+"");
+        out.flush();
         return true;
     }
 
     @Override
-    public Boolean addPassageiro() throws myException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Boolean addPassageiro(String username, String password) throws myException {
+        out.print(3+","+username+","+password+"");
+        out.flush();
+        return true;
     }
 
     @Override
     public Boolean addCondutor(String username, String password, String mat, String mod) throws myException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        out.print(4+" ");
+        out.print(username+" ");
+        out.print(password+" ");
+        out.print(mat+" ");
+        out.print(mod);
+        out.flush();
+        return true;    }
+
+    @Override
+    public Boolean passageiroExiste(String username) throws myException {
+        out.print(5+" ");
+        out.print(username);
+        out.flush();
+        return true;    }
+
+    @Override
+    public Boolean condutorExiste(String username) throws myException {
+        out.print(6+" ");
+        out.print(username);
+        out.flush();
+        return true;    
     }
 }
