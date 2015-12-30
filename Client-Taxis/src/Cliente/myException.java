@@ -7,15 +7,23 @@ package Cliente;
 
 /**
  *
- * @author ruioliveiras
+ * @author Diogo Duarte
  */
 public class myException extends Exception {
 
-    public myException() {
-        super();
+    protected String myMessage;
+    
+    public myException(String myMessage) {
+        super(myMessage);
+        this.myMessage = myMessage;
     }
 
-    public myException(String message) {
-        super(message);
+    @Override
+    public String getMessage() {
+        return myMessage; 
+    }
+
+    public String getMyMessage() {
+        return myMessage;
     }
 }
