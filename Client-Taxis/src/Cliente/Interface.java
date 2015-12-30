@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Tomás Ferreira
+ * @author Diogo Duarte
  *
  */
 public class Interface {///implements Facede{
