@@ -32,16 +32,16 @@ public class Client implements Facade {
     }
 
     @Override
-    public Boolean loginPassageiro(String username,String password) throws myException {
-        out.print(1+" ");
-        out.print(username+" ");
+    public Boolean loginPassageiro(String username, String password) throws myException {
+        out.print(1 + " ");
+        out.print(username + " ");
         out.print(password);
         out.flush();
         return true;
     }
 
     @Override
-    public Boolean loginCondutor(String username,String password) throws myException {
+    public Boolean loginCondutor(String username, String password) throws myException {
         out.print(2);
         return true;
     }
