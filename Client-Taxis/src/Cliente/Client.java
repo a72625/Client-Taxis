@@ -5,10 +5,7 @@
  */
 package Cliente;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,40 +30,41 @@ public class Client implements Facade {
 
     @Override
     public Boolean login(String username, String password) throws myException {
-        boolean resposta = false;
-        c.out.println(1 + "," + username + "," + password);
-        try {
+        //boolean resposta = false;
+        c.out.println(1 + "," + 2 + "," + username + "," + password);
+        return true;
+        /*try {
             resposta = c.response(c.in.readLine());
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }
 
     @Override
     public Boolean addPassageiro(String username, String password) throws myException {
-        c.out.println(3 + "," + username + "," + password);
+        //c.out.println(3 + "," + username + "," + password);
         return true;
     }
 
     @Override
     public Boolean addCondutor(String username, String password, String mat, String mod) throws myException {
-        c.out.println(3 + "," + username + "," + password + "," + mat + "," + mod);
+        //c.out.println(3 + "," + username + "," + password + "," + mat + "," + mod);
         return true;
     }
 
     @Override
     public Boolean passageiroExiste(String username) throws myException {
-        out.print(5 + " ");
-        out.print(username);
-        out.flush();
+        //out.print(5 + " ");
+        //out.print(username);
+        //out.flush();
         return true;
     }
 
     @Override
     public Boolean condutorExiste(String username) throws myException {
-        out.print(6 + " ");
-        out.print(username);
-        out.flush();
+        //out.print(6 + " ");
+        //out.print(username);
+        //out.flush();
         return true;
     }
 }
