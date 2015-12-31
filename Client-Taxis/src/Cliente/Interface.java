@@ -59,7 +59,7 @@ public class Interface {
             try{
                 login = c.login(user, pass);
             }catch(myException e){
-                throw e;
+                System.out.println(e.getMessage());
             }
         }while(!login);
         

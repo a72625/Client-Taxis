@@ -24,6 +24,5 @@ public class ClientMain{
         catch(IOException e){
             System.out.println(e.getMessage());
         }
-        
     }
 }
