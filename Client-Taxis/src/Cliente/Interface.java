@@ -26,11 +26,11 @@ public class Interface {
         this.c = c;
     }
     
-    public void start(){
+    public void start() throws IOException{
         carregarMenus();
         
         do {
-            try{
+            //try{
                 menulogreg.executa();
                 switch (menulogreg.getOpcao()) {
                     case 1: login();
@@ -38,30 +38,30 @@ public class Interface {
                     //case 2: registar();
                     //        break;
                 }
-            }catch(myException s){
-                System.err.println(s.getMessage());
-            }
+            //}catch(myException s){
+            //    System.err.println(s.getMessage());
+            //}
         } while (menulogreg.getOpcao()!=0);
     }
     
     
-    protected void login() throws myException{
+    protected void login() throws IOException{
         
         Scanner is = new Scanner(System.in);
         String pass;
-        boolean login = false;
+        //boolean login = false;
         
         do{
             System.out.print("Username: ");
             user = is.nextLine();
             System.out.print("Password: ");
             pass = is.nextLine();
-            try{
+            /*try{
                 login = c.login(user, pass);
             }catch(myException e){
                 System.out.println(e.getMessage());
-            }
-        }while(!login);
+            }*/
+        }while(!c.login(user, pass));
         
         do{
             try{

@@ -14,10 +14,10 @@ import java.io.IOException;
 public class ClientMain{
     
     public static void main(String[] args){
-        String ip = args[0];
-        int port = Integer.parseInt(args[1]);
+        //String ip = args1[0];
+        //int port = Integer.parseInt(args[1]);
         try{
-            Client u = new Client(ip,port);
+            Client u = new Client();
             Interface ui = new Interface(u);
             ui.start();
         }

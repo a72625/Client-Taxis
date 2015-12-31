@@ -11,8 +11,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -24,17 +22,14 @@ public class Client{
     private BufferedReader in;
     private PrintWriter out;
 
-    public Client(String ip, int port) throws IOException {
+    public Client() throws IOException {
         try {
-            clientSck = new Socket(ip, port);
+            clientSck = new Socket("localhost",2000);
         } catch (java.net.ConnectException a) {
             throw new IOException("Servidor não disponível");
         }
-        InputStreamReader isr = new InputStreamReader(clientSck.getInputStream());
-        in = new BufferedReader(isr);
-
-        OutputStreamWriter osr = new OutputStreamWriter(clientSck.getOutputStream());
-        out = new PrintWriter(osr);
+        out = new PrintWriter(clientSck.getOutputStream(),true);
+        in = new BufferedReader(new InputStreamReader(clientSck.getInputStream()));
     }
 
     private String[] mySplit(String mensagem) {
@@ -43,7 +38,7 @@ public class Client{
         return str;
     }
     
-    public boolean response(String mensagem) throws myException {
+    public boolean response(String mensagem){
         System.out.println(mensagem);
         String[] str = mySplit(mensagem);
         int codigo = Integer.parseInt(str[0]);
@@ -57,7 +52,7 @@ public class Client{
         return resposta;
     }
 
-    private boolean responseLogin(String mensagem) throws myException {
+    private boolean responseLogin(String mensagem){
         boolean resposta = false;
         if(mensagem.equals("ok")){
             resposta = true;
@@ -65,27 +60,25 @@ public class Client{
         return resposta;
     }
 
-    private boolean responseRegistar(String[] mensagem) throws myException {
+    private boolean responseRegistar(String[] mensagem){
         boolean resposta = false;
         switch (mensagem[1]) {
             case "user ja existe":
                 resposta = false;
-                throw new myException(mensagem[1]);
+                //throw new myException(mensagem[1]);
             case "impossivel registar":
                 resposta = false;
-                throw new myException(mensagem[1]);
+                //throw new myException(mensagem[1]);
         }
         return resposta;
     }
 
-    public Boolean login(String username, String password) throws myException{
+    public boolean login(String username, String password) throws IOException{
+        System.out.println("asd");
         boolean resposta = false;
-        out.println(1 + "," + username + "," + password);
-        try {
-            resposta = response(in.readLine());
-        } catch (IOException ex) {
-            //throw new myException("Impossivel obter resposta do servidor");
-        }
+        out.println(1 + "," + username + "," + password+","+"");
+        
+        resposta = response(in.readLine());
         return resposta;
     }
 }
