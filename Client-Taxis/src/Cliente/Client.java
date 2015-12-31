@@ -19,11 +19,11 @@ public class Client implements Facade {
     private Socket clientSck;
     private Connect c;
 
-    public Client(String ip, int port) throws IOException, myException {
+    public Client(String ip, int port) throws IOException {
         try {
-            clientSck = new Socket("localhost", 2000);
+            clientSck = new Socket(ip, port);
         } catch (java.net.ConnectException a) {
-            throw new myException("Servidor não está disponivel");
+            throw new IOException("Servidor não disponível");
         }
         c = new Connect(clientSck);
     }
