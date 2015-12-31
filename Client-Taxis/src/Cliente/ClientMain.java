@@ -13,11 +13,17 @@ import java.io.IOException;
  */
 public class ClientMain{
     
-    public static void main(String[] args) throws IOException, myException{
+    public static void main(String[] args){
         String ip = args[0];
         int port = Integer.parseInt(args[1]);
-        Client u = new Client(ip,port);
-        Interface ui = new Interface(u);
-        ui.start();
+        try{
+            Client u = new Client(ip,port);
+            Interface ui = new Interface(u);
+            ui.start();
+        }
+        catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+        
     }
 }
