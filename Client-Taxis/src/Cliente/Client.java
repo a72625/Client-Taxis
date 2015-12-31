@@ -28,16 +28,64 @@ public class Client implements Facade {
         c = new Connect(clientSck);
     }
 
+    private String[] mySplit(String mensagem) {
+        String[] str;
+        str = mensagem.split(",");
+        return str;
+    }
+    
+    public boolean response(String mensagem) throws myException {
+        String[] str = mySplit(mensagem);
+        int codigo = Integer.parseInt(str[0]);
+        boolean resposta = false;
+        switch (codigo) {
+            case 1:
+                responseLogin(str);
+            case 2:
+                responseRegistar(str);
+        }
+        return;
+    }
+
+    private boolean responseLogin(String[] mensagem) throws myException {
+        boolean resposta = false;
+        switch (mensagem[1]) {
+            case "password errada":
+                resposta = false;
+                throw new myException(mensagem[1]);
+            case "user nao existe":
+                resposta = false;
+                throw new myException(mensagem[1]);
+            case "ok":
+                resposta = true;
+                break;
+        }
+        return resposta;
+    }
+
+    private boolean responseRegistar(String[] mensagem) throws myException {
+        boolean resposta = false;
+        switch (mensagem[1]) {
+            case "user ja existe":
+                resposta = false;
+                throw new myException(mensagem[1]);
+            case "impossivel registar":
+                resposta = false;
+                throw new myException(mensagem[1]);
+        }
+        return resposta;
+    }
+
     @Override
     public Boolean login(String username, String password) throws myException {
-        //boolean resposta = false;
+        boolean resposta = false;
         c.out.println(1 + "," + 2 + "," + username + "," + password);
         return true;
-        /*try {
+        try {
             resposta = c.response(c.in.readLine());
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
     }
 
     @Override
