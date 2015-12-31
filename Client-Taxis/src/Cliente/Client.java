@@ -5,7 +5,11 @@
  */
 package Cliente;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,10 +18,11 @@ import java.util.logging.Logger;
  *
  * @author Diogo Duarte
  */
-public class Client implements Facade {
+public class Client{
 
     private Socket clientSck;
-    private Connect c;
+    private BufferedReader in;
+    private PrintWriter out;
 
     public Client(String ip, int port) throws IOException {
         try {
@@ -25,7 +30,11 @@ public class Client implements Facade {
         } catch (java.net.ConnectException a) {
             throw new IOException("Servidor não disponível");
         }
-        c = new Connect(clientSck);
+        InputStreamReader isr = new InputStreamReader(clientSck.getInputStream());
+        in = new BufferedReader(isr);
+
+        OutputStreamWriter osr = new OutputStreamWriter(clientSck.getOutputStream());
+        out = new PrintWriter(osr);
     }
 
     private String[] mySplit(String mensagem) {
@@ -35,30 +44,23 @@ public class Client implements Facade {
     }
     
     public boolean response(String mensagem) throws myException {
+        System.out.println(mensagem);
         String[] str = mySplit(mensagem);
         int codigo = Integer.parseInt(str[0]);
         boolean resposta = false;
         switch (codigo) {
             case 1:
-                responseLogin(str);
+                resposta = responseLogin(str[1]);
             case 2:
-                responseRegistar(str);
+                resposta = responseRegistar(str);
         }
-        return;
+        return resposta;
     }
 
-    private boolean responseLogin(String[] mensagem) throws myException {
+    private boolean responseLogin(String mensagem) throws myException {
         boolean resposta = false;
-        switch (mensagem[1]) {
-            case "password errada":
-                resposta = false;
-                throw new myException(mensagem[1]);
-            case "user nao existe":
-                resposta = false;
-                throw new myException(mensagem[1]);
-            case "ok":
-                resposta = true;
-                break;
+        if(mensagem.equals("ok")){
+            resposta = true;
         }
         return resposta;
     }
@@ -76,43 +78,14 @@ public class Client implements Facade {
         return resposta;
     }
 
-    @Override
-    public Boolean login(String username, String password) throws myException {
+    public Boolean login(String username, String password) throws myException{
         boolean resposta = false;
-        c.out.println(1 + "," + 2 + "," + username + "," + password);
-        return true;
+        out.println(1 + "," + username + "," + password);
         try {
-            resposta = c.response(c.in.readLine());
+            resposta = response(in.readLine());
         } catch (IOException ex) {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            //throw new myException("Impossivel obter resposta do servidor");
         }
-    }
-
-    @Override
-    public Boolean addPassageiro(String username, String password) throws myException {
-        //c.out.println(3 + "," + username + "," + password);
-        return true;
-    }
-
-    @Override
-    public Boolean addCondutor(String username, String password, String mat, String mod) throws myException {
-        //c.out.println(3 + "," + username + "," + password + "," + mat + "," + mod);
-        return true;
-    }
-
-    @Override
-    public Boolean passageiroExiste(String username) throws myException {
-        //out.print(5 + " ");
-        //out.print(username);
-        //out.flush();
-        return true;
-    }
-
-    @Override
-    public Boolean condutorExiste(String username) throws myException {
-        //out.print(6 + " ");
-        //out.print(username);
-        //out.flush();
-        return true;
+        return resposta;
     }
 }

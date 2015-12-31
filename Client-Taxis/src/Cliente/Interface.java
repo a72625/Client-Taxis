@@ -8,6 +8,7 @@ package Cliente;
 
 
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -15,14 +16,14 @@ import java.util.Scanner;
  * @author Diogo Duarte
  *
  */
-public class Interface {///implements Facede{
+public class Interface {
 
     public  Menu menulogreg,menuregop,menumain; 
     private String user;
-    private Facade f;
+    private Client c;
             
-    public Interface(Facade f){
-        this.f = f;
+    public Interface(Client c){
+        this.c = c;
     }
     
     public void start(){
@@ -34,8 +35,8 @@ public class Interface {///implements Facede{
                 switch (menulogreg.getOpcao()) {
                     case 1: login();
                             break;
-                    case 2: registar();
-                            break;
+                    //case 2: registar();
+                    //        break;
                 }
             }catch(myException s){
                 System.err.println(s.getMessage());
@@ -48,14 +49,19 @@ public class Interface {///implements Facede{
         
         Scanner is = new Scanner(System.in);
         String pass;
+        boolean login = false;
         
         do{
             System.out.print("Username: ");
             user = is.nextLine();
             System.out.print("Password: ");
             pass = is.nextLine();
-        }while(!f.login(user, pass));
-        //System.out.println("login Feito");
+            try{
+                login = c.login(user, pass);
+            }catch(myException e){
+                throw e;
+            }
+        }while(!login);
         
         do{
             try{
@@ -73,6 +79,14 @@ public class Interface {///implements Facede{
         } while (menumain.getOpcao()!=0);
     }
     
+    protected void solViagem(String user) throws myException{
+        
+    }
+    
+    protected void anunDisp(String user) throws myException{
+        
+    }
+    /*
     protected void registar(){
         do{
             try{
@@ -126,13 +140,7 @@ public class Interface {///implements Facede{
         f.addCondutor(usern, pass, mat, mod);
     }
     
-    protected void solViagem(String user) throws myException{
-        
-    }
-    
-    protected void anunDisp(String user) throws myException{
-        
-    }
+    */
     
     protected  void carregarMenus() {
     

@@ -21,8 +21,6 @@ public class Connect {
     private Socket socket;
     BufferedReader in;
     PrintWriter out;
-    private String[] args;
-    private int argsIndex;
 
     public Connect(Socket socket) throws IOException {
         this.socket = socket;
@@ -33,45 +31,6 @@ public class Connect {
         out = new PrintWriter(osr);
     }
 
-    public int readMessage() throws myException {
-        try {
-            String aux = in.readLine();
-
-            if (aux == null) {
-                socket.shutdownOutput();
-                socket.shutdownInput();
-                return -1;
-            }
-
-            String[] str = this.mySplit(aux);
-
-            int codigo, size;
-
-            codigo = Integer.parseInt(str[0]);
-            size = Integer.parseInt(str[1]);
-            args = new String[size];
-
-            for (int i = 0; i < size && i + 2 < str.length; i++) {
-                args[i] = str[i + 2];
-            }
-            argsIndex = 0;
-            return codigo;
-
-        } catch (IOException | NumberFormatException ex) {
-            throw new myException("Erro a ler");
-        }
-    }
-
-    public String getString(int index, String str) throws myException {
-        if (index < args.length && index >= 0) {
-            return args[index];
-        }
-        throw new myException("Numero de argumentos inválido");
-    }
-
-    public String pop(String str) throws myException {
-        return getString(argsIndex++, str);
-    }
 
     private String[] mySplit(String mensagem) {
         String[] str;
