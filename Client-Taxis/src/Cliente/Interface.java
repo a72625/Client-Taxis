@@ -127,11 +127,11 @@ public class Interface {
     }
 
     protected void anunDisp(String user) throws myException {
-        Scanner is = new Scanner(System.in);
+        
         int x, y;
         float preco;
+        String chegou;
         String mat, mod;
-        boolean solViagem = false;
 
         try {
             System.out.print("Insira a posição em que se encontra o condutor: \n");
@@ -141,27 +141,25 @@ public class Interface {
             mat = Input.lerString();
             System.out.println("Insira o modelo do veiculo");
             mod = Input.lerString();
-            if(c.anunDisp1(user, mat, mod, x, y)){
+            if (c.anunDisp1(user, mat, mod, x, y)) {
                 System.out.println("Quando o condutor tiver chegado ao local de partida escreva \"chegou\"\n");
-                String a = Input.lerString();
-                do{
-                    c.anunDisp2();
-                    System.out.println("Quando o condutor tiver chegado ao local de destino escreva \"chegou\"\n");
-                    String b = Input.lerString();
-                    do{
-                        System.out.println("Quanto custou a viagem ?\n");
-                        preco = Input.lerFloat();
-                        c.anunDisp3(preco);
-                    }while(b.equals("chegou"));
-                }while(!a.equals("chegou"));
-            }       
-            } catch (myException s) {
-                System.err.println(s.getMessage());
-            }
-        
-
-        if (solViagem) {
-            start();
+                do {
+                    chegou = Input.lerString();
+                } while (!chegou.equals("chegou"));
+                c.anunDisp2();
+                System.out.println("Quando o condutor tiver chegado ao local de destino escreva \"chegou\"\n");
+                do {
+                    chegou = Input.lerString();
+                } while (!chegou.equals("chegou"));
+                System.out.println("Quanto custou a viagem ?\n");
+                do {
+                    preco = Input.lerFloat();
+                } while (preco < 0);
+                c.anunDisp3(preco);
+            }else System.err.println("Ocorreu um erro!");
+            this.start();
+        } catch (myException s) {
+            System.err.println(s.getMessage());
         }
     }
 
@@ -170,14 +168,10 @@ public class Interface {
         String[] logreg = {"Login",
             "Registar"};
 
-        String[] regop = {"Passageiro",
-            "Condutor"};
-
         String[] main = {"Solicitar viagem",
             "Anunciar disponibilidade"};
 
         menulogreg = new Menu(logreg);
-        menuregop = new Menu(regop);
         menumain = new Menu(main);
     }
 
