@@ -50,7 +50,13 @@ public class Client {
                 resposta = responseLogin(str[1]);
                 break;
             case '2':
-                resposta = responseRegistar(str);
+                resposta = responseRegistar(str[1]);
+                break;
+            case '3':
+                resposta = responseSolViagem(str[1]);
+                break;
+            case '4':
+                resposta = resposnseAnunDisp(str[1]);
                 break;
             default:
                  throw new myException("Não foi possível efectuar a operação. Tente Novamente");
@@ -74,22 +80,52 @@ public class Client {
         return resposta;
     }
 
-    private boolean responseRegistar(String[] mensagem) throws myException {
+    private boolean responseRegistar(String mensagem) throws myException {
         boolean resposta = false;
-        switch (mensagem[1]) {
+        switch (mensagem) {
             case "ok":
                 resposta = true;
                 break;
             case "user ja existe":
-                throw new myException(mensagem[1]);            
+                throw new myException(mensagem);            
             case "impossivel registar":
-                throw new myException(mensagem[1]);    
+                throw new myException(mensagem);    
             default:
                 throw new myException("Não foi possível efectuar a operação. Tente Novamente");   
         }
         return resposta;
     }
 
+    private boolean responseSolViagem(String mensagem) throws myException{
+        boolean resposta = false;
+        switch (mensagem) {
+            case "condutor atribuido":
+                resposta = true;
+                break;
+            case "veiculo ja se encontra no local de partida":
+                resposta = true;
+                break;      
+            case "veiculo ja chegou ao local de destino":
+                resposta = true;
+                break;   
+            default:
+                throw new myException("Não foi possível efectuar a operação. Tente Novamente");   
+        }
+        return resposta;
+    }
+    
+    private boolean resposnseAnunDisp(String mensagem) throws myException{
+        boolean resposta = false;
+        switch (mensagem) {
+            case "ja foi atribuida uma deslocacao":
+                resposta = true;
+                break;
+            default:
+                throw new myException("Não foi possível efectuar a operação. Tente Novamente");   
+        }
+        return resposta;
+    }
+    
     public boolean login(String username, String password) throws myException {
         String sResposta = "";
         out.println(1 + "," + username + "," + password);
@@ -110,8 +146,46 @@ public class Client {
         } catch (IOException ex) {
             throw new myException("Não foi possível obter resposta do servidor");
         } finally {
-            System.out.println(response(sResposta));
             return response(sResposta);
         }
+    }
+    
+    public boolean solViagem(String username, int x_0, int y_0, int x, int y) throws myException{
+        String sResposta = "";
+        out.println(3 + "," + username + "," + x_0+ "," + y_0 + "," + x + "," + y);
+        try {
+            //condutor atribuido
+            sResposta = in.readLine();
+            response(sResposta);
+            //veiculo ja se encontra no local de partida
+            sResposta = in.readLine();
+            response(sResposta);
+            //veiculo ja chegou ao local de destino
+            sResposta = in.readLine();
+        } catch (IOException ex){
+            throw new myException("Não foi possível obter resposta do servidor");
+        }finally {
+            return response(sResposta);
+        }
+    }
+    
+    public boolean anunDisp1(String username, String mat, String mod, int x, int y) throws myException{
+        String sResposta = "";
+        out.println(4 + "," + username + "," + mat + "," + mod + "," + x + "," + y);
+        try {
+            sResposta = in.readLine();
+        } catch (IOException ex){
+            throw new myException("Não foi possível obter resposta do servidor");
+        }finally {
+            return response(sResposta);
+        }
+    }
+    
+    public void anunDisp2() throws myException{
+        out.println(4 + "chegou ao local de partida");
+    }
+    
+    public void anunDisp3(int preco) throws myException{
+        out.println(4 + "chegou ao local de destino" + "," + preco);
     }
 }
