@@ -47,15 +47,14 @@ public class Interface {
 
     protected void login() {
 
-        Scanner is = new Scanner(System.in);
         String pass;
         boolean login = false;
 
         try {
             System.out.print("Username: ");
-            user = is.nextLine();
+            user = Input.lerString();
             System.out.print("Password: ");
-            pass = is.nextLine();
+            pass = Input.lerString();
             login = c.login(user, pass);
 
         } catch (myException s) {
@@ -86,15 +85,14 @@ public class Interface {
 
     protected void registar() {
 
-        Scanner is = new Scanner(System.in);
         String pass;
         boolean registar = false;
 
         try {
             System.out.print("Username: ");
-            user = is.nextLine();
+            user = Input.lerString();
             System.out.print("Password: ");
-            pass = is.nextLine();
+            pass = Input.lerString();
             registar = c.registar(user, pass);
 
         } catch (myException s) {
@@ -131,6 +129,7 @@ public class Interface {
     protected void anunDisp(String user) throws myException {
         Scanner is = new Scanner(System.in);
         int x, y;
+        float preco;
         String mat, mod;
         boolean solViagem = false;
 
@@ -143,13 +142,15 @@ public class Interface {
             System.out.println("Insira o modelo do veiculo");
             mod = Input.lerString();
             if(c.anunDisp1(user, mat, mod, x, y)){
-                System.out.println("Quando o condutor tiver chegado ao local de partida escreva \"chegou\"");
+                System.out.println("Quando o condutor tiver chegado ao local de partida escreva \"chegou\"\n");
                 String a = Input.lerString();
                 do{
                     c.anunDisp2();
-                    System.out.println("Quando o condutor tiver chegado ao local de destino escreva \"chegou\"");
+                    System.out.println("Quando o condutor tiver chegado ao local de destino escreva \"chegou\"\n");
                     String b = Input.lerString();
                     do{
+                        System.out.println("Quanto custou a viagem ?\n");
+                        preco = Input.lerFloat();
                         c.anunDisp3(preco);
                     }while(b.equals("chegou"));
                 }while(!a.equals("chegou"));

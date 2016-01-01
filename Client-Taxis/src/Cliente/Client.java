@@ -8,11 +8,8 @@ package Cliente;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -185,7 +182,7 @@ public class Client {
         out.println(4 + "chegou ao local de partida");
     }
     
-    public void anunDisp3(int preco) throws myException{
+    public void anunDisp3(float preco) throws myException{
         out.println(4 + "chegou ao local de destino" + "," + preco);
     }
 }
