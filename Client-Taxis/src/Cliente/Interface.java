@@ -100,9 +100,7 @@ public class Interface {
         }
             
         if(registar){
-            do{
-                menulogreg.executa();
-            } while (menumain.getOpcao()!=0);
+            start();
         }
      }
     
@@ -113,61 +111,7 @@ public class Interface {
     protected void anunDisp(String user) throws myException{
         
     }
-    /*
-    protected void registar(){
-        do{
-            try{
-                menuregop.executa();
-                switch (menuregop.getOpcao()) {
-                    case 1: regPassageiro();
-                            break;
-                    case 2: regCondutor();
-                            break;
-                }
-
-            }catch(myException s){
-                System.err.println(s.getMessage());
-            }
-        } while (menuregop.getOpcao()!=0);
-    }
     
-    protected void regPassageiro() throws myException{
-        Scanner is = new Scanner(System.in);
-        String usern, pass;
-        
-        do {
-            System.out.print("Username: ");
-            usern = is.nextLine();
-        } while(f.passageiroExiste(usern));
-        
-        System.out.print("Password: ");
-        pass = is.nextLine();
-        
-        f.addPassageiro(usern, pass);
-    }
-    
-    protected void regCondutor() throws myException{
-        Scanner is = new Scanner(System.in);
-        String usern, pass,mat,mod;
-        
-        do {
-            System.out.print("Username: ");
-            usern = is.nextLine();
-        } while(f.condutorExiste(usern));
-        
-        System.out.print("Password: ");
-        pass = is.nextLine();
-        
-        System.out.print("Matricula: ");
-        mat = is.nextLine();
-        
-        System.out.print("Modelo: ");
-        mod = is.nextLine();
-        
-        f.addCondutor(usern, pass, mat, mod);
-    }
-    
-    */
     
     protected  void carregarMenus() {
     

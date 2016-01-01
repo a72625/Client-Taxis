@@ -58,17 +58,26 @@ public class Client {
 
     private boolean responseLogin(String mensagem) throws myException {
         boolean resposta = false;
-        if (mensagem.equals("ok")) {
-            resposta = true;
-        } else if (mensagem.equals("user nao existe")) {
-            throw new myException(mensagem);
-        }
+        switch (mensagem) {
+            case "ok":
+                resposta = true;
+                break;   
+            case "user nao existe":
+                throw new myException("user nao existe");
+            case "password errada":
+                throw new myException("Password errada");
+            default:
+                throw new myException("Não foi possível efectuar a operação. Tente Novamente");
+       }
         return resposta;
     }
 
     private boolean responseRegistar(String[] mensagem) throws myException {
-        boolean resposta = true;
+        boolean resposta = false;
         switch (mensagem[1]) {
+            case "ok":
+                resposta = true;
+                break;
             case "user ja existe":
                 resposta = false;
                 //throw new myException(mensagem[1]);
@@ -83,7 +92,6 @@ public class Client {
     }
 
     public boolean login(String username, String password) throws myException {
-        boolean resposta = false;
         String sResposta = "";
         out.println(1 + "," + username + "," + password);
         try {
@@ -96,8 +104,7 @@ public class Client {
     }
 
     public boolean registar(String username, String password) throws myException {
-        boolean resposta = false;
-        String sResposta="";
+        String sResposta = "";
         out.println(2 + "," + username + "," + password);
         try {
             sResposta = in.readLine();
