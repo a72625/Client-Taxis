@@ -51,33 +51,33 @@ public class Interface {
         String pass;
         boolean login = false;
         
-        do{
-            try{
-                System.out.print("Username: ");
-                user = is.nextLine();
-                System.out.print("Password: ");
-                pass = is.nextLine();
-                login = c.login(user, pass);
+        try{
+            System.out.print("Username: ");
+            user = is.nextLine();
+            System.out.print("Password: ");
+            pass = is.nextLine();
+            login = c.login(user, pass);
 
-            }catch(myException s){
-                System.err.println(s.getMessage());
-            }
-        }while(!login);
-        
-        do{
-            try{
-                menumain.executa();
-                switch (menumain.getOpcao()) {
-                    case 1: solViagem(user);
-                            break;
-                    case 2: anunDisp(user);
-                            break;
+        }catch(myException s){
+            System.err.println(s.getMessage());
+        }
+            
+        if(login){
+            do{
+                try{
+                    menumain.executa();
+                    switch (menumain.getOpcao()) {
+                        case 1: solViagem(user);
+                                break;
+                        case 2: anunDisp(user);
+                                break;
+                    }
+
+                }catch(myException s){
+                    System.err.println(s.getMessage());
                 }
-
-            }catch(myException s){
-                System.err.println(s.getMessage());
-            }
-        } while (menumain.getOpcao()!=0);
+            } while (menumain.getOpcao()!=0);
+        }
     }
     
     protected void solViagem(String user) throws myException{
