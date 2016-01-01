@@ -37,9 +37,9 @@ public class Client {
         return str;
     }
 
-    public int[] newResponse(String mensagem) throws myException {
+    //public int[] newResponse(String mensagem) throws myException {
         
-    }
+    //}
 
     public boolean response(String mensagem) throws myException {
         String[] str = mySplit(mensagem);

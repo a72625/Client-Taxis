@@ -98,7 +98,6 @@ public class Interface {
         } catch (myException s) {
             System.err.println(s.getMessage());
         }
-
         if (registar) {
             start();
         }
