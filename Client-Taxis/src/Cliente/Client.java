@@ -52,6 +52,8 @@ public class Client {
             case '2':
                 resposta = responseRegistar(str);
                 break;
+            default:
+                 throw new myException("Não foi possível efectuar a operação. Tente Novamente");
         }
         return resposta;
     }
@@ -63,9 +65,9 @@ public class Client {
                 resposta = true;
                 break;   
             case "user nao existe":
-                throw new myException("user nao existe");
+                throw new myException(mensagem);
             case "password errada":
-                throw new myException("Password errada");
+                throw new myException(mensagem);
             default:
                 throw new myException("Não foi possível efectuar a operação. Tente Novamente");
        }
@@ -79,14 +81,11 @@ public class Client {
                 resposta = true;
                 break;
             case "user ja existe":
-                resposta = false;
-                //throw new myException(mensagem[1]);
-                break;
+                throw new myException(mensagem[1]);            
             case "impossivel registar":
-                resposta = false;
-                //throw new myException(mensagem[1]);
-                break;
+                throw new myException(mensagem[1]);    
             default:
+                throw new myException("Não foi possível efectuar a operação. Tente Novamente");   
         }
         return resposta;
     }

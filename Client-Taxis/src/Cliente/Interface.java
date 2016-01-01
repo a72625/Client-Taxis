@@ -38,6 +38,7 @@ public class Interface {
                     case 2: registar();
                             break;
                     default:
+                        break;
                         
                 }
 //            }catch(myException s){
@@ -72,6 +73,8 @@ public class Interface {
                         case 1: solViagem(user);
                                 break;
                         case 2: anunDisp(user);
+                                break;
+                        default:
                                 break;
                     }
 
