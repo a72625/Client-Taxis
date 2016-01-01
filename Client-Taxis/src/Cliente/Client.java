@@ -11,6 +11,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -38,47 +40,56 @@ public class Client{
         return str;
     }
     
-    public boolean response(String mensagem){
-        System.out.println(mensagem);
+    public boolean response(String mensagem) throws myException{
         String[] str = mySplit(mensagem);
         int codigo = Integer.parseInt(str[0]);
         boolean resposta = false;
         switch (codigo) {
             case 1:
                 resposta = responseLogin(str[1]);
+                break;
             case 2:
                 resposta = responseRegistar(str);
+                break;
         }
         return resposta;
     }
 
-    private boolean responseLogin(String mensagem){
+    private boolean responseLogin(String mensagem) throws myException{
         boolean resposta = false;
         if(mensagem.equals("ok")){
             resposta = true;
         }
+        else if(mensagem.equals("user nao existe")){
+            throw new myException(mensagem);
+        }
         return resposta;
     }
 
-    private boolean responseRegistar(String[] mensagem){
+    private boolean responseRegistar(String[] mensagem) throws myException{
         boolean resposta = false;
         switch (mensagem[1]) {
             case "user ja existe":
                 resposta = false;
                 //throw new myException(mensagem[1]);
+                break;
             case "impossivel registar":
                 resposta = false;
                 //throw new myException(mensagem[1]);
+                break;
         }
         return resposta;
     }
 
-    public boolean login(String username, String password) throws IOException{
-        System.out.println("asd");
+    public boolean login(String username, String password) throws myException{
         boolean resposta = false;
-        out.println(1 + "," + username + "," + password+","+"");
-        
-        resposta = response(in.readLine());
-        return resposta;
+        String sResposta = "";
+        out.println(1 + "," + username + "," + password);
+        try {
+            sResposta = in.readLine();
+        } catch (IOException ex) {
+            throw new myException("Não foi possível obter resposta do servidor");
+        }
+        finally{return response(sResposta);}
     }
 }
