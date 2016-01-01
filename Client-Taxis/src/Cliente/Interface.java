@@ -35,8 +35,10 @@ public class Interface {
                 switch (menulogreg.getOpcao()) {
                     case 1: login();
                             break;
-                    //case 2: registar();
-                    //        break;
+                    case 2: registar();
+                            break;
+                    default:
+                        
                 }
 //            }catch(myException s){
 //                System.err.println(s.getMessage());
@@ -79,6 +81,30 @@ public class Interface {
             } while (menumain.getOpcao()!=0);
         }
     }
+    
+     protected void registar() {
+         
+        Scanner is = new Scanner(System.in);
+        String pass;
+        boolean registar = false;
+        
+        try{
+            System.out.print("Username: ");
+            user = is.nextLine();
+            System.out.print("Password: ");
+            pass = is.nextLine();
+            registar = c.registar(user, pass);
+
+        }catch(myException s){
+            System.err.println(s.getMessage());
+        }
+            
+        if(registar){
+            do{
+                menulogreg.executa();
+            } while (menumain.getOpcao()!=0);
+        }
+     }
     
     protected void solViagem(String user) throws myException{
         
@@ -158,4 +184,6 @@ public class Interface {
         menuregop = new Menu(regop);
         menumain = new Menu(main);
     }
+
+   
 }

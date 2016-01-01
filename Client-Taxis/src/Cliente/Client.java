@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author Diogo Duarte
  */
-public class Client{
+public class Client {
 
     private Socket clientSck;
     private BufferedReader in;
@@ -26,11 +26,11 @@ public class Client{
 
     public Client() throws IOException {
         try {
-            clientSck = new Socket("localhost",2000);
+            clientSck = new Socket("localhost", 2000);
         } catch (java.net.ConnectException a) {
             throw new IOException("Servidor não disponível");
         }
-        out = new PrintWriter(clientSck.getOutputStream(),true);
+        out = new PrintWriter(clientSck.getOutputStream(), true);
         in = new BufferedReader(new InputStreamReader(clientSck.getInputStream()));
     }
 
@@ -39,35 +39,35 @@ public class Client{
         str = mensagem.split(",");
         return str;
     }
-    
-    public boolean response(String mensagem) throws myException{
+
+    public boolean response(String mensagem) throws myException {
         String[] str = mySplit(mensagem);
-        int codigo = Integer.parseInt(str[0]);
+        //int codigo = Integer.parseInt(str[0]);
+        char codigo = str[0].charAt(0);
         boolean resposta = false;
         switch (codigo) {
-            case 1:
+            case '1':
                 resposta = responseLogin(str[1]);
                 break;
-            case 2:
+            case '2':
                 resposta = responseRegistar(str);
                 break;
         }
         return resposta;
     }
 
-    private boolean responseLogin(String mensagem) throws myException{
+    private boolean responseLogin(String mensagem) throws myException {
         boolean resposta = false;
-        if(mensagem.equals("ok")){
+        if (mensagem.equals("ok")) {
             resposta = true;
-        }
-        else if(mensagem.equals("user nao existe")){
+        } else if (mensagem.equals("user nao existe")) {
             throw new myException(mensagem);
         }
         return resposta;
     }
 
-    private boolean responseRegistar(String[] mensagem) throws myException{
-        boolean resposta = false;
+    private boolean responseRegistar(String[] mensagem) throws myException {
+        boolean resposta = true;
         switch (mensagem[1]) {
             case "user ja existe":
                 resposta = false;
@@ -77,11 +77,12 @@ public class Client{
                 resposta = false;
                 //throw new myException(mensagem[1]);
                 break;
+            default:
         }
         return resposta;
     }
 
-    public boolean login(String username, String password) throws myException{
+    public boolean login(String username, String password) throws myException {
         boolean resposta = false;
         String sResposta = "";
         out.println(1 + "," + username + "," + password);
@@ -89,7 +90,22 @@ public class Client{
             sResposta = in.readLine();
         } catch (IOException ex) {
             throw new myException("Não foi possível obter resposta do servidor");
+        } finally {
+            return response(sResposta);
         }
-        finally{return response(sResposta);}
+    }
+
+    public boolean registar(String username, String password) throws myException {
+        boolean resposta = false;
+        String sResposta="";
+        out.println(2 + "," + username + "," + password);
+        try {
+            sResposta = in.readLine();
+        } catch (IOException ex) {
+            throw new myException("Não foi possível obter resposta do servidor");
+        } finally {
+            System.out.println(response(sResposta));
+            return response(sResposta);
+        }
     }
 }
