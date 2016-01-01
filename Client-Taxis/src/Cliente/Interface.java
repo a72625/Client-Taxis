@@ -142,20 +142,22 @@ public class Interface {
             mat = Input.lerString();
             System.out.println("Insira o modelo do veiculo");
             mod = Input.lerString();
-            c.anunDisp1(user, mat, mod, x, y);
-            System.out.println("Quando o condutor tiver chegado ao local de partida escreva \"chegou\"");
-            String a = Input.lerString();
-            do{
-                c.anunDisp2();
-                System.out.println("Quando o condutor tiver chegado ao local de destino escreva \"chegou\"");
-                String b = Input.lerString();
+            if(c.anunDisp1(user, mat, mod, x, y)){
+                System.out.println("Quando o condutor tiver chegado ao local de partida escreva \"chegou\"");
+                String a = Input.lerString();
                 do{
-                    c.anunDisp3(preco);
-                }while(b.equals("chegou"));
-            }while(!a.equals("chegou"));
-        } catch (myException s) {
-            System.err.println(s.getMessage());
-        }
+                    c.anunDisp2();
+                    System.out.println("Quando o condutor tiver chegado ao local de destino escreva \"chegou\"");
+                    String b = Input.lerString();
+                    do{
+                        c.anunDisp3(preco);
+                    }while(b.equals("chegou"));
+                }while(!a.equals("chegou"));
+            }       
+            } catch (myException s) {
+                System.err.println(s.getMessage());
+            }
+        
 
         if (solViagem) {
             start();
