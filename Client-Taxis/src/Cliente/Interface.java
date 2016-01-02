@@ -104,7 +104,7 @@ public class Interface {
     }
 
     protected void solViagem(String user) throws myException {
-        Scanner is = new Scanner(System.in);
+        
         int x_0, y_0, x, y;
         boolean solViagem = false;
 
