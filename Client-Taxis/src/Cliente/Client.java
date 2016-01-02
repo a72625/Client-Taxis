@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -38,9 +40,7 @@ public class Client {
     }
 
     //public int[] newResponse(String mensagem) throws myException {
-        
     //}
-
     public boolean response(String mensagem) throws myException {
         String[] str = mySplit(mensagem);
         //int codigo = Integer.parseInt(str[0]);
@@ -57,7 +57,16 @@ public class Client {
                 resposta = responseSolViagem(str[1]);
                 break;
             case '4':
-                resposta = responseAnunDisp(str[1]);
+                resposta = responseAnunDisp1(str[1]);
+                break;
+            case '5':
+                resposta = responseAnunDisp2(str[1]);
+                break;
+            case '6':
+                resposta = responseSolViagem2(str[1]);
+                break;
+            case '7':
+                resposta = responseAnunDisp3(str[1]);
                 break;
             default:
                 throw new myException("Não foi possível efectuar a operação. Tente Novamente");
@@ -65,6 +74,13 @@ public class Client {
         return resposta;
     }
 
+    /* public String[] response2(String mensagem) throws myException {
+     String[] str = mySplit(mensagem);
+     if (Integer.parseInt(str[0]) == 3 && str[1].equals("condutor atribuido")) {
+     return str;
+     }
+     return null;
+     }*/
     private boolean responseLogin(String mensagem) throws myException {
         boolean resposta = false;
         switch (mensagem) {
@@ -103,10 +119,32 @@ public class Client {
             case "condutor atribuido":
                 resposta = true;
                 break;
-            case "veiculo ja se encontra no local de partida":
+            case "nao foi possivel estabelecer viagem":
+                throw new myException("Não foi possível efectuar a operação. Tente Novamente");
+            default:
+                throw new myException("Não foi possível efectuar a operação. Tente Novamente");
+        }
+        return resposta;
+    }
+
+    private boolean responseAnunDisp1(String mensagem) throws myException {
+        boolean resposta = false;
+        switch (mensagem) {
+            case "ja foi atribuida uma deslocacao":
                 resposta = true;
                 break;
-            case "veiculo ja chegou ao local de destino":
+            case "nao foi possivel estabelecer viagem":
+                throw new myException("Não foi possível efectuar a operação. Tente Novamente");
+            default:
+                throw new myException("Não foi possível efectuar a operação. Tente Novamente");
+        }
+        return resposta;
+    }
+
+    private boolean responseAnunDisp2(String mensagem) throws myException {
+        boolean resposta = false;
+        switch (mensagem) {
+            case "ok":
                 resposta = true;
                 break;
             default:
@@ -115,10 +153,22 @@ public class Client {
         return resposta;
     }
 
-    private boolean responseAnunDisp(String mensagem) throws myException {
+    private boolean responseAnunDisp3(String mensagem) throws myException {
         boolean resposta = false;
         switch (mensagem) {
-            case "ja foi atribuida uma deslocacao":
+            case "ok":
+                resposta = true;
+                break;
+            default:
+                throw new myException("Não foi possível efectuar a operação. Tente Novamente");
+        }
+        return resposta;
+    }
+
+    private boolean responseSolViagem2(String mensagem) throws myException {
+        boolean resposta = false;
+        switch (mensagem) {
+            case "chegou ao local de partida":
                 resposta = true;
                 break;
             default:
@@ -151,17 +201,93 @@ public class Client {
         }
     }
 
-    public boolean solViagem(String username, int x_0, int y_0, int x, int y) throws myException {
-        String sResposta = "";
-        out.println(3 + "," + username + "," + x_0 + "," + y_0 + "," + x + "," + y);
+    /*public boolean solViagem(String username, int x_0, int y_0, int x, int y) throws myException {
+     String sResposta = "";
+     out.println(3 + "," + username + "," + x_0 + "," + y_0 + "," + x + "," + y);
+     try {
+     //condutor atribuido
+     sResposta = in.readLine();
+     } catch (IOException ex) {
+     Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+     }
+     if (response(sResposta)) {
+     try {
+     //veiculo ja se encontra no local de partida
+     sResposta = in.readLine();
+     } catch (IOException ex) {
+     Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+     }
+     if (response(sResposta)) {
+     try {
+     //veiculo ja chegou ao local de destino
+     sResposta = in.readLine();
+     } catch (IOException ex) {
+     Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+     }
+     return response(sResposta);
+     }
+     }
+     return false;
+     }*/
+    public String[] SolViagem(String username, int x_0, int y_0, int x, int y) {
         try {
-            //condutor atribuido
+            String sResposta = "";
+            out.println(3 + "," + username + "," + x_0 + "," + y_0 + "," + x + "," + y);
+            try {
+                sResposta = in.readLine();
+            } catch (IOException ex) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (response(sResposta)) {
+                return sResposta.split(",");
+            } else {
+                return null;
+            }
+        } catch (myException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public boolean SolViagem2(int codViagem) {
+        String sResposta = "";
+        try {
             sResposta = in.readLine();
-            response(sResposta);
-            //veiculo ja se encontra no local de partida
-            sResposta = in.readLine();
-            response(sResposta);
-            //veiculo ja chegou ao local de destino
+        } catch (IOException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            return response(sResposta);
+        } catch (myException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public String[] anunDisp1(String username, String mat, String mod, int x, int y) {
+        try {
+            String sResposta = "";
+            out.println(4 + "," + username + "," + mat + "," + mod + "," + x + "," + y);
+            try {
+                sResposta = in.readLine();
+            } catch (IOException ex) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (response(sResposta)) {
+                return sResposta.split(",");
+            } else {
+                return null;
+            }
+        } catch (myException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public boolean anunDisp2(int codigoViagem) throws myException {
+        String sResposta = "";
+        out.println(5 + "chegou ao local de partida" + codigoViagem);
+        try {
             sResposta = in.readLine();
         } catch (IOException ex) {
             throw new myException("Não foi possível obter resposta do servidor");
@@ -170,9 +296,10 @@ public class Client {
         }
     }
 
-    public boolean anunDisp1(String username, String mat, String mod, int x, int y) throws myException {
+    public boolean anunDisp3(float preco, int codigoViagem) throws myException {
+
         String sResposta = "";
-        out.println(4 + "," + username + "," + mat + "," + mod + "," + x + "," + y);
+        out.println(7 + "chegou ao local de destino" + "," + preco + codigoViagem);
         try {
             sResposta = in.readLine();
         } catch (IOException ex) {
@@ -180,13 +307,5 @@ public class Client {
         } finally {
             return response(sResposta);
         }
-    }
-
-    public void anunDisp2() throws myException {
-        out.println(4 + "chegou ao local de partida");
-    }
-
-    public void anunDisp3(float preco) throws myException {
-        out.println(4 + "chegou ao local de destino" + "," + preco);
     }
 }
