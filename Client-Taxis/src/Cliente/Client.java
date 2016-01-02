@@ -68,6 +68,8 @@ public class Client {
             case '7':
                 resposta = responseAnunDisp3(str[1]);
                 break;
+            case '8':
+                resposta = responseSolViagem3(str[1]);
             default:
                 throw new myException("Não foi possível efectuar a operação. Tente Novamente");
         }
@@ -177,6 +179,18 @@ public class Client {
         return resposta;
     }
 
+    private boolean responseSolViagem3(String mensagem) throws myException {
+        boolean resposta = false;
+        switch (mensagem) {
+            case "chegou ao local de destino":
+                resposta = true;
+                break;
+            default:
+                throw new myException("Não foi possível efectuar a operação. Tente Novamente");
+        }
+        return resposta;
+    }
+
     public boolean login(String username, String password) throws myException {
         String sResposta = "";
         out.println(1 + "," + username + "," + password);
@@ -201,89 +215,99 @@ public class Client {
         }
     }
 
-    /*public boolean solViagem(String username, int x_0, int y_0, int x, int y) throws myException {
-     String sResposta = "";
-     out.println(3 + "," + username + "," + x_0 + "," + y_0 + "," + x + "," + y);
-     try {
-     //condutor atribuido
-     sResposta = in.readLine();
-     } catch (IOException ex) {
-     Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-     }
-     if (response(sResposta)) {
-     try {
-     //veiculo ja se encontra no local de partida
-     sResposta = in.readLine();
-     } catch (IOException ex) {
-     Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-     }
-     if (response(sResposta)) {
-     try {
-     //veiculo ja chegou ao local de destino
-     sResposta = in.readLine();
-     } catch (IOException ex) {
-     Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-     }
-     return response(sResposta);
-     }
-     }
-     return false;
-     }*/
-    public String[] SolViagem(String username, int x_0, int y_0, int x, int y) {
-        try {
-            String sResposta = "";
-            out.println(3 + "," + username + "," + x_0 + "," + y_0 + "," + x + "," + y);
-            try {
-                sResposta = in.readLine();
-            } catch (IOException ex) {
-                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if (response(sResposta)) {
-                return sResposta.split(",");
-            } else {
-                return null;
-            }
-        } catch (myException ex) {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
-    public boolean SolViagem2(int codViagem) {
+    public String[] solViagem(String username, int x_0, int y_0, int x, int y) throws myException {
         String sResposta = "";
+        out.println(3 + "," + username + "," + x_0 + "," + y_0 + "," + x + "," + y);
         try {
             sResposta = in.readLine();
         } catch (IOException ex) {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            return response(sResposta);
-        } catch (myException ex) {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-
-    public String[] anunDisp1(String username, String mat, String mod, int x, int y) {
-        try {
-            String sResposta = "";
-            out.println(4 + "," + username + "," + mat + "," + mod + "," + x + "," + y);
-            try {
-                sResposta = in.readLine();
-            } catch (IOException ex) {
-                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            throw new myException("Não foi possível obter resposta do servidor");
+        } finally {
             if (response(sResposta)) {
                 return sResposta.split(",");
             } else {
                 return null;
             }
-        } catch (myException ex) {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
     }
 
+    public boolean chegouPartidaPassageiro(int codViagem) throws myException {
+        String sResposta = "";
+        try {
+            sResposta = in.readLine();   // chegou ao local de partida
+        } catch (IOException ex) {
+            throw new myException("Não foi possível obter resposta do servidor");
+        } finally {
+            return response(sResposta);
+        }
+    }
+
+    public void chegouPartidaRespostaPassageiro(int codViagem) throws myException {
+        out.println(6 + "ok" + codViagem);
+    }
+
+    public boolean chegouDestinoPassageiro(int codViagem) throws myException {
+        String sResposta = "";
+        try {
+            sResposta = in.readLine();   // chegou ao local de destino
+        } catch (IOException ex) {
+            throw new myException("Não foi possível obter resposta do servidor");
+        } finally {
+            return response(sResposta);
+        }
+    }
+
+    public void chegouDestinoRespostaPassageiro(int codViagem) throws myException {
+        out.println(8 + "ok" + codViagem);
+    }
+
+    public void chegouPartidaCondutor(int codViagem) throws myException {
+
+        out.println(5 + "chegou ao local de partida" + codViagem);
+    }
+
+    public boolean chegouPartidaRespostaCondutor(int codViagem) throws myException {
+        String sResposta = "";
+        try {
+            sResposta = in.readLine();   // ok
+        } catch (IOException ex) {
+            throw new myException("Não foi possível obter resposta do servidor");
+        } finally {
+            return response(sResposta);
+        }
+    }
+
+    public void chegouDestinoCondutor(int codViagem, float preco) throws myException {
+        out.println(7 + "chegou ao local de destino" + preco + codViagem);
+    }
+
+    public boolean chegouDestinoRespostaCondutor(int codViagem) throws myException {
+        String sResposta = "";
+        try {
+            sResposta = in.readLine();   // ok
+        } catch (IOException ex) {
+            throw new myException("Não foi possível obter resposta do servidor");
+        } finally {
+            return response(sResposta);
+        }
+    }
+
+    public String[] anunDisp1(String username, String mat, String mod, int x, int y) throws myException {
+        String sResposta = "";
+        out.println(4 + "," + username + "," + mat + "," + mod + "," + x + "," + y);
+        try {
+            sResposta = in.readLine();
+        } catch (IOException ex) {
+            throw new myException("Não foi possível obter resposta do servidor");
+        } finally {
+            if (response(sResposta)) {
+                return sResposta.split(",");
+            } else {
+                return null;
+            }
+        }
+    }
+   
     public boolean anunDisp2(int codigoViagem) throws myException {
         String sResposta = "";
         out.println(5 + "chegou ao local de partida" + codigoViagem);
