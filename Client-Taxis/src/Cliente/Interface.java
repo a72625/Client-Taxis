@@ -6,7 +6,6 @@ package Cliente;
  * and open the template in the editor.
  */
 import static java.lang.Math.floor;
-import java.util.Scanner;
 
 /**
  *
@@ -27,7 +26,6 @@ public class Interface {
         carregarMenus();
 
         do {
-//            try{
             menulogreg.executa();
             switch (menulogreg.getOpcao()) {
                 case 1:
@@ -40,9 +38,6 @@ public class Interface {
                     break;
 
             }
-//            }catch(myException s){
-//                System.err.println(s.getMessage());
-//            }
         } while (menulogreg.getOpcao() != 0);
     }
 
@@ -125,10 +120,14 @@ public class Interface {
         String[] resposta = null;
 
         System.out.print("Insira a posição em que se encontra: \n");
+        System.out.print("x = ");
         x_0 = Input.lerInt();
+        System.out.print("y = ");
         y_0 = Input.lerInt();
         System.out.print("Insira a posição do destino: \n");
+        System.out.print("x = ");
         x = Input.lerInt();
+        System.out.print("y = ");
         y = Input.lerInt();
         int codViagem;
         String chegou;
@@ -177,7 +176,9 @@ public class Interface {
         String[] anunDispMostra = null;
 
         System.out.print("Insira a posição em que se encontra o condutor: \n");
+        System.out.print("x = ");
         x = Input.lerInt();
+        System.out.print("y = ");
         y = Input.lerInt();
         System.out.println("Insira a matricula do veiculo");
         mat = Input.lerString();
@@ -190,7 +191,7 @@ public class Interface {
             System.out.println("Já foi atribuida uma viagem!\nCódigo de Viagem: " + anunDispMostra[2] + "\nNome do Passageiro: "
                     + anunDispMostra[3] + "\nCoordenadas do local de partida: (" + anunDispMostra[4] + "," + anunDispMostra[5]
                     + ")\nCoordenadas da do local de destino : (" + anunDispMostra[6] + "," + anunDispMostra[7] + ")");
-            
+
             System.out.println("Quando o condutor tiver chegado ao local de partida escreva \"chegei\"\n");
             do {
                 chegou = Input.lerString();
@@ -201,7 +202,7 @@ public class Interface {
                 do {
                     chegou = Input.lerString();
                 } while (!chegou.equals("cheguei"));
-                
+
                 System.out.print("Insira o preco do transporte: \n");
                 preco = Input.lerFloat();
                 c.chegouDestinoCondutor(codigoViagem, preco);
@@ -232,4 +233,5 @@ public class Interface {
         menumain = new Menu(main);
     }
 
+    
 }

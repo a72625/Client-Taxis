@@ -20,9 +20,11 @@ public class ClientMain{
             Client u = new Client();
             Interface ui = new Interface(u);
             ui.start();
+            u.close();
         }
         catch(IOException e){
             System.err.println(e.getMessage());
         }
+        
     }
 }

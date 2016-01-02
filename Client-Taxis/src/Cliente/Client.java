@@ -33,6 +33,12 @@ public class Client {
         in = new BufferedReader(new InputStreamReader(clientSck.getInputStream()));
     }
 
+    public void close() throws IOException {
+        in.close();
+        out.close();
+        clientSck.close();
+    }
+
     private String[] mySplit(String mensagem) {
         String[] str;
         str = mensagem.split(",");
@@ -307,7 +313,7 @@ public class Client {
             }
         }
     }
-   
+
     public boolean anunDisp2(int codigoViagem) throws myException {
         String sResposta = "";
         out.println(5 + "chegou ao local de partida" + codigoViagem);
