@@ -36,13 +36,9 @@ public class Interface {
                 case 2:
                     registar();
                     break;
-                case 3: {
-                    logout();
-                }
-                break;
                 default:
                     break;
-                    
+
             }
         } while (menulogreg.getOpcao() != 0);
 
@@ -75,6 +71,9 @@ public class Interface {
                         case 2:
                             anunDisp();
                             break;
+                        case 3:
+                            logout();
+                            break;
                         default:
                             break;
                     }
@@ -88,15 +87,16 @@ public class Interface {
     }
 
     protected void logout() {
-        boolean logout=false;
-        try{
-            logout=c.logout(user);
+        boolean logout = false;
+        try {
+            logout = c.logout(user);
         } catch (myException s) {
             System.err.println(s.getMessage());
         }
         if (logout) {
             user = "null";
             System.out.println("Logout efectuado com sucesso");
+            start();
         } else {
             System.err.println("Não foi possivel fazer logout. Tente Novamente");
         }
@@ -172,11 +172,11 @@ public class Interface {
                 } while (!chegou.equals("ok"));
                 c.chegouPartidaRespostaPassageiro(codViagem);
             }
-            String [] chegouDestino = c.chegouDestinoPassageiro(codViagem); 
+            String[] chegouDestino = c.chegouDestinoPassageiro(codViagem);
 
-            if (chegouDestino!=null) {
+            if (chegouDestino != null) {
                 float preco = Integer.parseInt(chegouDestino[2]);
-                System.out.println("Chegou ao local de destino e a viagem, teve um custo de" +preco+ "€,para confirmar pressione \"ok\" \n");
+                System.out.println("Chegou ao local de destino e a viagem, teve um custo de" + preco + "€,para confirmar pressione \"ok\" \n");
                 do {
                     chegou = Input.lerString();
                 } while (!chegou.equals("ok"));
@@ -248,11 +248,11 @@ public class Interface {
     protected void carregarMenus() {
 
         String[] logreg = {"Login",
-            "Registar",
-            "Logout"};
+            "Registar"};
 
         String[] main = {"Solicitar viagem",
-            "Anunciar disponibilidade"};
+            "Anunciar disponibilidade",
+            "Logout"};
 
         menulogreg = new Menu(logreg);
         menumain = new Menu(main);
