@@ -115,9 +115,6 @@ public class Client {
             case "ok":
                 resposta = true;
                 break;
-            case "nao foi possivel fazer logout":
-                resposta = false;
-                break;
             default:
                 throw new myException("Não foi possível efectuar a operação. Tente Novamente");
         }
@@ -132,8 +129,6 @@ public class Client {
                 break;
             case "user ja existe":
                 throw new myException(mensagem);
-            case "impossivel registar":
-                throw new myException(mensagem);
             default:
                 throw new myException("Não foi possível efectuar a operação. Tente Novamente");
         }
@@ -146,8 +141,6 @@ public class Client {
             case "condutor atribuido":
                 resposta = true;
                 break;
-            case "nao foi possivel estabelecer viagem":
-                throw new myException("Não foi possível efectuar a operação. Tente Novamente");
             default:
                 throw new myException("Não foi possível efectuar a operação. Tente Novamente");
         }
@@ -160,8 +153,6 @@ public class Client {
             case "ja foi atribuida uma deslocacao":
                 resposta = true;
                 break;
-            case "nao foi possivel estabelecer viagem":
-                throw new myException("Não foi possível efectuar a operação. Tente Novamente");
             default:
                 throw new myException("Não foi possível efectuar a operação. Tente Novamente");
         }

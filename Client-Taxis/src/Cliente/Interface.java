@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  */
 public class Interface {
 
-    public Menu menulogreg, menuregop, menumain;
+    public Menu menuLogReg, menuMain, menuAnunDisp;
     private String user;
     private Client c;
 
@@ -24,12 +24,12 @@ public class Interface {
         this.c = c;
     }
 
-    public void start() {
+    public void start(){
         carregarMenus();
 
         do {
-            menulogreg.executa();
-            switch (menulogreg.getOpcao()) {
+            menuLogReg.executa();
+            switch (menuLogReg.getOpcao()) {
                 case 1:
                     login();
                     break;
@@ -40,11 +40,11 @@ public class Interface {
                     break;
 
             }
-        } while (menulogreg.getOpcao() != 0);
+        } while (menuLogReg.getOpcao() != 0);
 
     }
 
-    protected void login() {
+    protected void login(){
 
         boolean login = false;
         String pass;
@@ -63,16 +63,13 @@ public class Interface {
             System.out.println("\nLogin realizado com sucesso");
             do {
                 try {
-                    menumain.executa();
-                    switch (menumain.getOpcao()) {
+                    menuMain.executa();
+                    switch (menuMain.getOpcao()) {
                         case 1:
                             solViagem();
                             break;
                         case 2:
                             anunDisp();
-                            break;
-                        case 3:
-                            logout();
                             break;
                         default:
                             break;
@@ -81,28 +78,16 @@ public class Interface {
                 } catch (myException s) {
                     System.err.println(s.getMessage());
                 }
-            } while (menumain.getOpcao() != 0);
-            //c.logout(user);
+            } while (menuMain.getOpcao() != 0);
+            try {
+                c.logout(user);
+            } catch (myException ex) {
+                System.err.println(ex.getMessage());
+            }
         }
     }
 
-    protected void logout() {
-        boolean logout = false;
-        try {
-            logout = c.logout(user);
-        } catch (myException s) {
-            System.err.println(s.getMessage());
-        }
-        if (logout) {
-            user = "null";
-            System.out.println("Logout efectuado com sucesso");
-            start();
-        } else {
-            System.err.println("Não foi possivel fazer logout. Tente Novamente");
-        }
-    }
-
-    protected void registar() {
+    protected void registar(){
 
         String pass;
         boolean registar = false;
@@ -176,9 +161,9 @@ public class Interface {
 
             if (chegouDestino != null) {
                 float preco = Float.parseFloat(chegouDestino[2]);
-                System.out.println("Viagem concluída. Custo: " +preco);
-                    System.out.println("Para confirmar pressione enter\n");
-                    
+                System.out.println("Viagem concluída. Custo: " + preco);
+                System.out.println("Para confirmar pressione enter\n");
+
                 do {
                     chegou = Input.lerString();
                 } while (!chegou.equals(""));
@@ -187,7 +172,7 @@ public class Interface {
         } else {
             System.err.println("Não foi possivel solicitar viagem");
         }
-       menumain.executa();
+        menuMain.executa();
 
     }
 
@@ -244,22 +229,23 @@ public class Interface {
             System.err.println("Ocorreu um erro!");
             this.start();
         }
-        menumain.executa();
+        menuMain.executa();
     }
 
     protected void carregarMenus() {
 
-        String[] logreg = {"Login",
+        String[] logReg = {"Login",
             "Registar"};
 
         String[] main = {"Solicitar viagem",
             "Anunciar disponibilidade"};
 
-        String[] anunDisp ={"Voltar a anunciar disponibilidade neste local",
-            "Voltar a anunciar disponibilidade noutro local",};
-        
-        menulogreg = new Menu(logreg);
-        menumain = new Menu(main);
+        String[] anunDisp = {"Voltar a anunciar disponibilidade neste local",
+            "Voltar a anunciar disponibilidade noutro local"};
+
+        menuLogReg = new Menu(logReg);
+        menuMain = new Menu(main);
+        menuAnunDisp = new Menu(anunDisp);
     }
 
 }
