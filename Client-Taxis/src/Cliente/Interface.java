@@ -6,8 +6,6 @@ package Cliente;
  * and open the template in the editor.
  */
 import static java.lang.Math.floor;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -17,14 +15,15 @@ import java.util.logging.Logger;
 public class Interface {
 
     public Menu menuLogReg, menuMain, menuAnunDisp;
-    private String user;
+    private String user,mod,mat;
+    private int x,y;
     private Client c;
 
     public Interface(Client c) {
         this.c = c;
     }
 
-    public void start(){
+    public void start() {
         carregarMenus();
 
         do {
@@ -44,7 +43,7 @@ public class Interface {
 
     }
 
-    protected void login(){
+    protected void login() {
 
         boolean login = false;
         String pass;
@@ -87,7 +86,7 @@ public class Interface {
         }
     }
 
-    protected void registar(){
+    protected void registar() {
 
         String pass;
         boolean registar = false;
@@ -178,10 +177,10 @@ public class Interface {
 
     protected void anunDisp() throws myException {
 
-        int x, y;
+        //int x, y;
         float preco;
         String chegou;
-        String mat, mod;
+        //String mat, mod;
         int codigoViagem;
 
         String[] anunDispMostra = null;
@@ -221,6 +220,9 @@ public class Interface {
                     System.err.println("Ocorreu um erro!");
                     this.start();
                 }
+                x = Integer.parseInt(anunDispMostra[6]);
+                y = Integer.parseInt(anunDispMostra[7]);
+                this.menuAnunDisp();
             } else {
                 System.err.println("Ocorreu um erro!");
                 this.start();
@@ -229,6 +231,70 @@ public class Interface {
             System.err.println("Ocorreu um erro!");
             this.start();
         }
+        menuMain.executa();
+    }
+
+    protected void anunDispMesmoLocal() throws myException {
+        //int x, y;
+        float preco;
+        String chegou;
+        //String mat, mod;
+        int codigoViagem;
+
+        String[] anunDispMostra = null;
+        
+        anunDispMostra = c.anunDisp1(user, mat, mod, x, y);
+        if (anunDispMostra != null) {
+            codigoViagem = Integer.parseInt(anunDispMostra[2]);
+            System.out.println("Anuncio de disponibilidade realizado com sucesso\n");
+            System.out.println("Já foi atribuida uma viagem!\nCódigo de Viagem: " + anunDispMostra[2] + "\nNome do Passageiro: "
+                    + anunDispMostra[3] + "\nCoordenadas do local de partida: (" + anunDispMostra[4] + "," + anunDispMostra[5]
+                    + ")\nCoordenadas da do local de destino : (" + anunDispMostra[6] + "," + anunDispMostra[7] + ")");
+
+            System.out.println("Quando o condutor tiver chegado ao local de partida pressione enter\n");
+            do {
+                chegou = Input.lerString();
+            } while (!chegou.equals(""));
+            c.chegouPartidaCondutor(codigoViagem);
+            if (c.chegouPartidaRespostaCondutor(codigoViagem)) {
+                System.out.println("Quando o condutor tiver chegado ao local de destino pressione enter\n");
+                do {
+                    chegou = Input.lerString();
+                } while (!chegou.equals(""));
+
+                System.out.print("Insira o preco do transporte: \n");
+                preco = Input.lerFloat();
+                c.chegouDestinoCondutor(codigoViagem, preco);
+                if (!c.chegouDestinoRespostaCondutor(codigoViagem)) {
+                    System.err.println("Ocorreu um erro!");
+                    this.start();
+                }
+                this.menuAnunDisp();
+            } else {
+                System.err.println("Ocorreu um erro!");
+                this.start();
+            }
+        } else {
+            System.err.println("Ocorreu um erro!");
+            this.start();
+        }
+        menuMain.executa();
+    }
+
+    protected void menuAnunDisp() throws myException {
+        do {
+            menuAnunDisp.executa();
+            switch (menuAnunDisp.getOpcao()) {
+                case 1:
+                    anunDispMesmoLocal();
+                    break;
+                case 2:
+                    anunDisp();
+                    break;
+                default:
+                    break;
+            }
+        } while (menuAnunDisp.getOpcao() != 0);
         menuMain.executa();
     }
 
