@@ -167,15 +167,13 @@ public class Interface {
         } else {
             System.err.println("Não foi possivel solicitar viagem");
         }
-        //menuPrincipal();
+   
     }
 
     protected void anunDisp() throws myException {
 
-        //int x, y;
         float preco;
         String chegou;
-        //String mat, mod;
         int codigoViagem;
 
         String[] anunDispMostra = null;
@@ -220,7 +218,6 @@ public class Interface {
                 } else {
                     x = Integer.parseInt(anunDispMostra[6]);
                     y = Integer.parseInt(anunDispMostra[7]);
-                    //this.menuAnunDisp();
                 }
             } else {
                 System.err.println("Ocorreu um erro!");
@@ -234,10 +231,9 @@ public class Interface {
     }
 
     protected void anunDispMesmoCarro() throws myException {
-        //int x, y;
+     
         float preco;
         String chegou;
-        //String mat, mod;
         int codigoViagem;
 
         String[] anunDispMostra = null;
@@ -280,7 +276,6 @@ public class Interface {
                     x = Integer.parseInt(anunDispMostra[6]);
                     y = Integer.parseInt(anunDispMostra[7]);
                 }
-                //this.menuAnunDisp();
             } else {
                 System.err.println("Ocorreu um erro!");
                 menuPrincipal();
@@ -293,10 +288,8 @@ public class Interface {
     }
 
     protected void anunDispMesmoLocal() throws myException {
-        //int x, y;
         float preco;
         String chegou;
-        //String mat, mod;
         int codigoViagem;
 
         String[] anunDispMostra = null;
@@ -332,7 +325,6 @@ public class Interface {
                     x = Integer.parseInt(anunDispMostra[6]);
                     y = Integer.parseInt(anunDispMostra[7]);
                 }
-                //this.menuAnunDisp();
             } else {
                 System.err.println("Ocorreu um erro!");
                 menuPrincipal();
@@ -342,7 +334,6 @@ public class Interface {
             menuPrincipal();
         }
         this.menuAnunDisp();
-        //menuPrincipal();
     }
 
     protected void menuAnunDisp() throws myException {
@@ -357,7 +348,6 @@ public class Interface {
                     break;
             }
         } while (menuAnunDisp.getOpcao() != 0);
-        //menuPrincipal();
     }
 
     protected void carregarMenus() {
