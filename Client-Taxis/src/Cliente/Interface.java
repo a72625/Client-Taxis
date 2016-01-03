@@ -142,11 +142,10 @@ public class Interface {
 
             String newtime = secToFormat(Integer.parseInt(resposta[5]));
             String newtime2 = secToFormat(Integer.parseInt(resposta[6]));
-            System.out.println("Solicitação de viagem realizada com sucesso.\n");
             System.out.println("Código da Viagem: " + resposta[2] + "\nMatricula: " + resposta[3] + "\nModelo: " + resposta[4]
                     + "\nTempo estimado de espera(HH:MM:SS): " + newtime + "\nDuração estimada da viagem(HH:MM:SS): "
                     + newtime2 + "\nPreço Estimado: " + resposta[7] + "€");
-
+            System.out.println("A aguardar resposta do condutor...");
             if (c.chegouPartidaPassageiro(codViagem)) {
                 System.out.println("Chegou ao local de partida, para confirmar pressione enter");
                 do {
@@ -154,8 +153,9 @@ public class Interface {
                 } while (!chegou.equals(""));
                 c.chegouPartidaRespostaPassageiro(codViagem);
             }
+            System.out.println("A aguardar resposta do condutor...");
             String[] chegouDestino = c.chegouDestinoPassageiro(codViagem);
-
+            
             if (chegouDestino != null) {
                 float preco = Float.parseFloat(chegouDestino[2]);
                 System.out.println("Viagem concluída. Custo: " + preco);
@@ -206,14 +206,16 @@ public class Interface {
                 chegou = Input.lerString();
             } while (!chegou.equals(""));
             c.chegouPartidaCondutor(codigoViagem);
+            System.out.println("A aguardar resposta do passageiro...");
             if (c.chegouPartidaRespostaCondutor(codigoViagem)) {
                 System.out.println("Quando o condutor tiver chegado ao local de destino pressione enter");
                 do {
                     chegou = Input.lerString();
                 } while (!chegou.equals(""));
-
+                
                 System.out.print("Insira o preco do transporte: \n");
                 preco = Input.lerFloat();
+                System.out.println("A aguardar resposta do passageiro...");
                 c.chegouDestinoCondutor(codigoViagem, preco);
                 if (!c.chegouDestinoRespostaCondutor(codigoViagem)) {
                     System.err.println("Ocorreu um erro!");
