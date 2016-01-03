@@ -43,11 +43,8 @@ public class Client {
         return str;
     }
 
-    //public int[] newResponse(String mensagem) throws myException {
-    //}
     public boolean response(String mensagem) throws myException {
         String[] str = mySplit(mensagem);
-        //int codigo = Integer.parseInt(str[0]);
         char codigo = str[0].charAt(0);
         boolean resposta = false;
         switch (codigo) {
@@ -84,13 +81,6 @@ public class Client {
         return resposta;
     }
 
-    /* public String[] response2(String mensagem) throws myException {
-     String[] str = mySplit(mensagem);
-     if (Integer.parseInt(str[0]) == 3 && str[1].equals("condutor atribuido")) {
-     return str;
-     }
-     return null;
-     }*/
     private boolean responseLogin(String mensagem) throws myException {
         boolean resposta = false;
         switch (mensagem) {

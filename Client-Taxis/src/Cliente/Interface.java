@@ -5,7 +5,10 @@ package Cliente;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import java.io.IOException;
 import static java.lang.Math.floor;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,12 +38,8 @@ public class Interface {
                 case 2:
                     registar();
                     break;
-                default:
-                    break;
-
             }
         } while (menuLogReg.getOpcao() != 0);
-
     }
 
     protected void login() {
@@ -74,10 +73,7 @@ public class Interface {
                     case 2:
                         anunDisp();
                         break;
-                    default:
-                        break;
                 }
-
             } catch (myException s) {
                 System.err.println(s.getMessage());
             }
@@ -175,8 +171,7 @@ public class Interface {
         } else {
             System.err.println("Não foi possivel solicitar viagem");
         }
-        menuPrincipal();
-
+        //menuPrincipal();
     }
 
     protected void anunDisp() throws myException {
@@ -222,23 +217,24 @@ public class Interface {
                 c.chegouDestinoCondutor(codigoViagem, preco);
                 if (!c.chegouDestinoRespostaCondutor(codigoViagem)) {
                     System.err.println("Ocorreu um erro!");
-                    this.start();
+                    menuPrincipal();
+                } else {
+                    x = Integer.parseInt(anunDispMostra[6]);
+                    y = Integer.parseInt(anunDispMostra[7]);
+                    //this.menuAnunDisp();
                 }
-                x = Integer.parseInt(anunDispMostra[6]);
-                y = Integer.parseInt(anunDispMostra[7]);
-                this.menuAnunDisp();
             } else {
                 System.err.println("Ocorreu um erro!");
-                this.start();
+                menuPrincipal();
             }
         } else {
             System.err.println("Ocorreu um erro!");
-            this.start();
+            menuPrincipal();
         }
-        menuPrincipal();
+        this.menuAnunDisp();
     }
 
-    protected void anunDispMesmoCarro() throws myException{
+    protected void anunDispMesmoCarro() throws myException {
         //int x, y;
         float preco;
         String chegou;
@@ -252,7 +248,7 @@ public class Interface {
         x = Input.lerInt();
         System.out.print("y = ");
         y = Input.lerInt();
-        
+
         anunDispMostra = c.anunDisp1(user, mat, mod, x, y);
         if (anunDispMostra != null) {
             codigoViagem = Integer.parseInt(anunDispMostra[2]);
@@ -277,20 +273,23 @@ public class Interface {
                 c.chegouDestinoCondutor(codigoViagem, preco);
                 if (!c.chegouDestinoRespostaCondutor(codigoViagem)) {
                     System.err.println("Ocorreu um erro!");
-                    this.start();
+                    menuPrincipal();
+                }else{
+                    x = Integer.parseInt(anunDispMostra[6]);
+                    y = Integer.parseInt(anunDispMostra[7]);
                 }
-                this.menuAnunDisp();
+                //this.menuAnunDisp();
             } else {
                 System.err.println("Ocorreu um erro!");
-                this.start();
+                menuPrincipal();
             }
         } else {
             System.err.println("Ocorreu um erro!");
-            this.start();
+            menuPrincipal();
         }
-        menuPrincipal();
+        this.menuAnunDisp();
     }
-    
+
     protected void anunDispMesmoLocal() throws myException {
         //int x, y;
         float preco;
@@ -324,18 +323,22 @@ public class Interface {
                 c.chegouDestinoCondutor(codigoViagem, preco);
                 if (!c.chegouDestinoRespostaCondutor(codigoViagem)) {
                     System.err.println("Ocorreu um erro!");
-                    this.start();
+                    menuPrincipal();
+                }else{
+                    x = Integer.parseInt(anunDispMostra[6]);
+                    y = Integer.parseInt(anunDispMostra[7]);
                 }
-                this.menuAnunDisp();
+                //this.menuAnunDisp();
             } else {
                 System.err.println("Ocorreu um erro!");
-                this.start();
+                menuPrincipal();
             }
         } else {
             System.err.println("Ocorreu um erro!");
-            this.start();
+            menuPrincipal();
         }
-        menuPrincipal();
+        this.menuAnunDisp();
+        //menuPrincipal();
     }
 
     protected void menuAnunDisp() throws myException {
@@ -348,11 +351,9 @@ public class Interface {
                 case 2:
                     anunDispMesmoCarro();
                     break;
-                default:
-                    break;
             }
         } while (menuAnunDisp.getOpcao() != 0);
-        menuPrincipal();
+        //menuPrincipal();
     }
 
     protected void carregarMenus() {
