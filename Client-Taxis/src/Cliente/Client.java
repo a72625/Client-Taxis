@@ -77,6 +77,7 @@ public class Client {
                 break;
             case '9':
                 resposta = responseLogout(str[1]);
+                break;
             default:
                 throw new myException("Não foi possível efectuar a operação. Tente Novamente");
         }
@@ -115,7 +116,7 @@ public class Client {
                 resposta = true;
                 break;
             case "nao foi possivel fazer logout":
-                resposta=false;
+                resposta = false;
                 break;
             default:
                 throw new myException("Não foi possível efectuar a operação. Tente Novamente");
@@ -332,7 +333,7 @@ public class Client {
         }
     }
 
-    public boolean logout(String username) throws myException{
+    public boolean logout(String username) throws myException {
         String sResposta = "";
         out.println(9 + "," + username);
         try {
@@ -340,7 +341,8 @@ public class Client {
         } catch (IOException ex) {
             throw new myException("Não foi possível obter resposta do servidor");
         } finally {
-            return response(sResposta);
+            boolean flag = response(sResposta);
+            return flag;
         }
     }
 }
