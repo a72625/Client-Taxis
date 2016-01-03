@@ -14,8 +14,6 @@ import java.io.IOException;
 public class ClientMain {
 
     public static void main(String[] args) {
-        //String ip = args1[0];
-        //int port = Integer.parseInt(args[1]);
         int port;
         if (args.length == 0) {
             port = 2000;//2000 por omissao
