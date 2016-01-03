@@ -176,10 +176,11 @@ public class Interface {
 
             if (chegouDestino != null) {
                 float preco = Float.parseFloat(chegouDestino[2]);
-                System.out.println("Chegou ao local de destino e a viagem, teve um custo de" + preco + "€,para confirmar pressione \"ok\" \n");
+                System.out.println("Viagem concluída. Custo: " +preco);
+                    System.out.println("Para confirmar pressione enter");
                 do {
                     chegou = Input.lerString();
-                } while (!chegou.equals("ok"));
+                } while (!chegou.equals("\n"));
                 c.chegouDestinoRespostaPassageiro(codViagem);
             }
         } else {
