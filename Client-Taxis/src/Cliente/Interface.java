@@ -187,7 +187,7 @@ public class Interface {
         } else {
             System.err.println("Não foi possivel solicitar viagem");
         }
-        start();
+       menumain.executa();
 
     }
 
@@ -244,7 +244,7 @@ public class Interface {
             System.err.println("Ocorreu um erro!");
             this.start();
         }
-        this.start();
+        menumain.executa();
     }
 
     protected void carregarMenus() {
