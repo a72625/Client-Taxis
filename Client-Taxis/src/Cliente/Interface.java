@@ -175,7 +175,7 @@ public class Interface {
             String[] chegouDestino = c.chegouDestinoPassageiro(codViagem);
 
             if (chegouDestino != null) {
-                float preco = Integer.parseInt(chegouDestino[2]);
+                float preco = Float.parseFloat(chegouDestino[2]);
                 System.out.println("Chegou ao local de destino e a viagem, teve um custo de" + preco + "€,para confirmar pressione \"ok\" \n");
                 do {
                     chegou = Input.lerString();
