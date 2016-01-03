@@ -265,6 +265,7 @@ public class Interface {
                 chegou = Input.lerString();
             } while (!chegou.equals(""));
             c.chegouPartidaCondutor(codigoViagem);
+            System.out.println("A aguardar resposta do passageiro...");
             if (c.chegouPartidaRespostaCondutor(codigoViagem)) {
                 System.out.println("Quando o condutor tiver chegado ao local de destino pressione enter\n");
                 do {
@@ -273,6 +274,7 @@ public class Interface {
 
                 System.out.print("Insira o preco do transporte: \n");
                 preco = Input.lerFloat();
+                System.out.println("A aguardar resposta do passageiro...");
                 c.chegouDestinoCondutor(codigoViagem, preco);
                 if (!c.chegouDestinoRespostaCondutor(codigoViagem)) {
                     System.err.println("Ocorreu um erro!");
@@ -315,6 +317,7 @@ public class Interface {
                 chegou = Input.lerString();
             } while (!chegou.equals(""));
             c.chegouPartidaCondutor(codigoViagem);
+            System.out.println("A aguardar resposta do passageiro...");
             if (c.chegouPartidaRespostaCondutor(codigoViagem)) {
                 System.out.println("Quando o condutor tiver chegado ao local de destino pressione enter\n");
                 do {
@@ -323,6 +326,7 @@ public class Interface {
 
                 System.out.print("Insira o preco do transporte: \n");
                 preco = Input.lerFloat();
+                System.out.println("A aguardar resposta do passageiro...");
                 c.chegouDestinoCondutor(codigoViagem, preco);
                 if (!c.chegouDestinoRespostaCondutor(codigoViagem)) {
                     System.err.println("Ocorreu um erro!");
