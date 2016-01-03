@@ -39,7 +39,7 @@ public class Interface {
 
             }
         } while (menulogreg.getOpcao() != 0);
-        
+
     }
 
     protected void login() {
@@ -69,6 +69,9 @@ public class Interface {
                         case 2:
                             anunDisp();
                             break;
+                        case 3:
+                            logout();
+                            break;
                         default:
                             break;
                     }
@@ -77,7 +80,16 @@ public class Interface {
                     System.err.println(s.getMessage());
                 }
             } while (menumain.getOpcao() != 0);
-            c.logout(user);
+            //c.logout(user);
+        }
+    }
+
+        protected void logout() throws myException {
+            if (c.logout(user)) {
+                user = "null";
+                System.out.println("Logout efectuado com sucesso");
+        } else {
+            System.err.println("Não foi possivel fazer logout. Tente Novamente");
         }
     }
 
@@ -142,7 +154,7 @@ public class Interface {
             System.out.println("Solicitação de viagem realizada com sucesso.\n");
             System.out.println("Código da Viagem: " + resposta[2] + "\nMatricula: " + resposta[3] + "\nModelo: " + resposta[4]
                     + "\nTempo estimado de espera(HH:MM:SS): " + newtime + "\nDuração estimada da viagem(HH:MM:SS): "
-                    + newtime2 + "\nPreço: " + resposta[7]);
+                    + newtime2 + "\nPreço Estimado: " + resposta[7] + "€");
 
             if (c.chegouPartidaPassageiro(codViagem)) {
                 System.out.println("Chegou ao local de partida, para confirmar pressione \"ok\" \n");
@@ -225,7 +237,8 @@ public class Interface {
     protected void carregarMenus() {
 
         String[] logreg = {"Login",
-            "Registar"};
+            "Registar",
+            "Logout"};
 
         String[] main = {"Solicitar viagem",
             "Anunciar disponibilidade"};
@@ -234,5 +247,4 @@ public class Interface {
         menumain = new Menu(main);
     }
 
-    
 }

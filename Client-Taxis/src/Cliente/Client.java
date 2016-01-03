@@ -74,6 +74,9 @@ public class Client {
                 break;
             case '8':
                 resposta = responseSolViagem3(str[1]);
+                break;
+            case '9':
+                resposta = responseLogout(str[1]);
             default:
                 throw new myException("Não foi possível efectuar a operação. Tente Novamente");
         }
@@ -99,6 +102,21 @@ public class Client {
                 throw new myException(mensagem);
             case "user ja esta autenticado":
                 throw new myException(mensagem);
+            default:
+                throw new myException("Não foi possível efectuar a operação. Tente Novamente");
+        }
+        return resposta;
+    }
+
+    private boolean responseLogout(String mensagem) throws myException {
+        boolean resposta = false;
+        switch (mensagem) {
+            case "ok":
+                resposta = true;
+                break;
+            case "nao foi possivel fazer logout":
+                resposta=false;
+                break;
             default:
                 throw new myException("Não foi possível efectuar a operação. Tente Novamente");
         }
@@ -284,7 +302,7 @@ public class Client {
     }
 
     public void chegouDestinoCondutor(int codViagem, float preco) throws myException {
-        out.println(7 + "," + "chegou ao local de destino"  + "," + preco + "," + codViagem);
+        out.println(7 + "," + "chegou ao local de destino" + "," + preco + "," + codViagem);
     }
 
     public boolean chegouDestinoRespostaCondutor(int codViagem) throws myException {
@@ -314,32 +332,15 @@ public class Client {
         }
     }
 
-    public boolean anunDisp2(int codigoViagem) throws myException {
+    public boolean logout(String username) throws myException{
         String sResposta = "";
-        out.println(5 + "," + "chegou ao local de partida" + "," + codigoViagem);
-        try {
-            sResposta = in.readLine();
-        } catch (IOException ex) {
-            throw new myException("Não foi possível obter resposta do servidor");
-        } finally {
-            return response(sResposta);
-        }
-    }
-
-    public boolean anunDisp3(float preco, int codigoViagem) throws myException {
-
-        String sResposta = "";
-        out.println(7 + "," + "chegou ao local de destino" + "," + preco + "," + codigoViagem);
-        try {
-            sResposta = in.readLine();
-        } catch (IOException ex) {
-            throw new myException("Não foi possível obter resposta do servidor");
-        } finally {
-            return response(sResposta);
-        }
-    }
-    
-    public void logout(String username){
         out.println(9 + "," + username);
+        try {
+            sResposta = in.readLine();
+        } catch (IOException ex) {
+            throw new myException("Não foi possível obter resposta do servidor");
+        } finally {
+            return response(sResposta);
+        }
     }
 }
