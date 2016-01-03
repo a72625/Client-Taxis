@@ -6,6 +6,8 @@ package Cliente;
  * and open the template in the editor.
  */
 import static java.lang.Math.floor;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -34,9 +36,13 @@ public class Interface {
                 case 2:
                     registar();
                     break;
+                case 3: {
+                    logout();
+                }
+                break;
                 default:
                     break;
-
+                    
             }
         } while (menulogreg.getOpcao() != 0);
 
@@ -69,9 +75,6 @@ public class Interface {
                         case 2:
                             anunDisp();
                             break;
-                        case 3:
-                            logout();
-                            break;
                         default:
                             break;
                     }
@@ -84,10 +87,16 @@ public class Interface {
         }
     }
 
-        protected void logout() throws myException {
-            if (c.logout(user)) {
-                user = "null";
-                System.out.println("Logout efectuado com sucesso");
+    protected void logout() {
+        boolean logout=false;
+        try{
+            logout=c.logout(user);
+        } catch (myException s) {
+            System.err.println(s.getMessage());
+        }
+        if (logout) {
+            user = "null";
+            System.out.println("Logout efectuado com sucesso");
         } else {
             System.err.println("Não foi possivel fazer logout. Tente Novamente");
         }
