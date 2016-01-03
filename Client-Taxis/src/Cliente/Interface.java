@@ -237,6 +237,59 @@ public class Interface {
         menuPrincipal();
     }
 
+    protected void anunDispMesmoCarro() throws myException{
+        //int x, y;
+        float preco;
+        String chegou;
+        //String mat, mod;
+        int codigoViagem;
+
+        String[] anunDispMostra = null;
+
+        System.out.print("Insira a posição em que se encontra o condutor: \n");
+        System.out.print("x = ");
+        x = Input.lerInt();
+        System.out.print("y = ");
+        y = Input.lerInt();
+        
+        anunDispMostra = c.anunDisp1(user, mat, mod, x, y);
+        if (anunDispMostra != null) {
+            codigoViagem = Integer.parseInt(anunDispMostra[2]);
+            System.out.println("Anuncio de disponibilidade realizado com sucesso\n");
+            System.out.println("Já foi atribuida uma viagem!\nCódigo de Viagem: " + anunDispMostra[2] + "\nNome do Passageiro: "
+                    + anunDispMostra[3] + "\nCoordenadas do local de partida: (" + anunDispMostra[4] + "," + anunDispMostra[5]
+                    + ")\nCoordenadas da do local de destino : (" + anunDispMostra[6] + "," + anunDispMostra[7] + ")");
+
+            System.out.println("Quando o condutor tiver chegado ao local de partida pressione enter\n");
+            do {
+                chegou = Input.lerString();
+            } while (!chegou.equals(""));
+            c.chegouPartidaCondutor(codigoViagem);
+            if (c.chegouPartidaRespostaCondutor(codigoViagem)) {
+                System.out.println("Quando o condutor tiver chegado ao local de destino pressione enter\n");
+                do {
+                    chegou = Input.lerString();
+                } while (!chegou.equals(""));
+
+                System.out.print("Insira o preco do transporte: \n");
+                preco = Input.lerFloat();
+                c.chegouDestinoCondutor(codigoViagem, preco);
+                if (!c.chegouDestinoRespostaCondutor(codigoViagem)) {
+                    System.err.println("Ocorreu um erro!");
+                    this.start();
+                }
+                this.menuAnunDisp();
+            } else {
+                System.err.println("Ocorreu um erro!");
+                this.start();
+            }
+        } else {
+            System.err.println("Ocorreu um erro!");
+            this.start();
+        }
+        menuPrincipal();
+    }
+    
     protected void anunDispMesmoLocal() throws myException {
         //int x, y;
         float preco;
@@ -292,7 +345,7 @@ public class Interface {
                     anunDispMesmoLocal();
                     break;
                 case 2:
-                    anunDisp();
+                    anunDispMesmoCarro();
                     break;
                 default:
                     break;
