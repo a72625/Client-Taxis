@@ -150,7 +150,7 @@ public class Interface {
                     + newtime2 + "\nPreço Estimado: " + resposta[7] + "€");
 
             if (c.chegouPartidaPassageiro(codViagem)) {
-                System.out.println("Chegou ao local de partida, para confirmar pressione enter \n");
+                System.out.println("Chegou ao local de partida, para confirmar pressione enter");
                 do {
                     chegou = Input.lerString();
                 } while (!chegou.equals(""));
@@ -161,7 +161,7 @@ public class Interface {
             if (chegouDestino != null) {
                 float preco = Float.parseFloat(chegouDestino[2]);
                 System.out.println("Viagem concluída. Custo: " + preco);
-                System.out.println("Para confirmar pressione enter\n");
+                System.out.println("Para confirmar pressione enter");
 
                 do {
                     chegou = Input.lerString();
@@ -202,13 +202,13 @@ public class Interface {
                     + anunDispMostra[3] + "\nCoordenadas do local de partida: (" + anunDispMostra[4] + "," + anunDispMostra[5]
                     + ")\nCoordenadas da do local de destino : (" + anunDispMostra[6] + "," + anunDispMostra[7] + ")");
 
-            System.out.println("Quando o condutor tiver chegado ao local de partida pressione enter\n");
+            System.out.println("Quando o condutor tiver chegado ao local de partida pressione enter");
             do {
                 chegou = Input.lerString();
             } while (!chegou.equals(""));
             c.chegouPartidaCondutor(codigoViagem);
             if (c.chegouPartidaRespostaCondutor(codigoViagem)) {
-                System.out.println("Quando o condutor tiver chegado ao local de destino pressione enter\n");
+                System.out.println("Quando o condutor tiver chegado ao local de destino pressione enter");
                 do {
                     chegou = Input.lerString();
                 } while (!chegou.equals(""));
