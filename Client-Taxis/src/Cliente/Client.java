@@ -97,6 +97,8 @@ public class Client {
                 throw new myException(mensagem);
             case "password errada":
                 throw new myException(mensagem);
+            case "user ja esta autenticado":
+                throw new myException(mensagem);
             default:
                 throw new myException("Não foi possível efectuar a operação. Tente Novamente");
         }
@@ -247,7 +249,7 @@ public class Client {
     }
 
     public void chegouPartidaRespostaPassageiro(int codViagem) throws myException {
-        out.println(6 + "ok" + codViagem);
+        out.println(6 + "," + "ok" + "," + codViagem);
     }
 
     public boolean chegouDestinoPassageiro(int codViagem) throws myException {
@@ -262,12 +264,12 @@ public class Client {
     }
 
     public void chegouDestinoRespostaPassageiro(int codViagem) throws myException {
-        out.println(8 + "ok" + codViagem);
+        out.println(8 + "," + "ok" + "," + codViagem);
     }
 
     public void chegouPartidaCondutor(int codViagem) throws myException {
 
-        out.println(5 + "chegou ao local de partida" + codViagem);
+        out.println(5 + "," + "chegou ao local de partida" + "," + codViagem);
     }
 
     public boolean chegouPartidaRespostaCondutor(int codViagem) throws myException {
@@ -282,7 +284,7 @@ public class Client {
     }
 
     public void chegouDestinoCondutor(int codViagem, float preco) throws myException {
-        out.println(7 + "chegou ao local de destino" + preco + codViagem);
+        out.println(7 + "," + "chegou ao local de destino"  + "," + preco + "," + codViagem);
     }
 
     public boolean chegouDestinoRespostaCondutor(int codViagem) throws myException {
@@ -314,7 +316,7 @@ public class Client {
 
     public boolean anunDisp2(int codigoViagem) throws myException {
         String sResposta = "";
-        out.println(5 + "chegou ao local de partida" + codigoViagem);
+        out.println(5 + "," + "chegou ao local de partida" + "," + codigoViagem);
         try {
             sResposta = in.readLine();
         } catch (IOException ex) {
@@ -327,7 +329,7 @@ public class Client {
     public boolean anunDisp3(float preco, int codigoViagem) throws myException {
 
         String sResposta = "";
-        out.println(7 + "chegou ao local de destino" + "," + preco + codigoViagem);
+        out.println(7 + "," + "chegou ao local de destino" + "," + preco + "," + codigoViagem);
         try {
             sResposta = in.readLine();
         } catch (IOException ex) {
@@ -335,5 +337,9 @@ public class Client {
         } finally {
             return response(sResposta);
         }
+    }
+    
+    public void logout(String username){
+        out.println(9 + "," + username);
     }
 }

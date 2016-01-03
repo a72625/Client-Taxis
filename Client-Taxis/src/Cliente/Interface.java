@@ -39,13 +39,13 @@ public class Interface {
 
             }
         } while (menulogreg.getOpcao() != 0);
+        
     }
 
     protected void login() {
 
-        String pass;
         boolean login = false;
-
+        String pass;
         try {
             System.out.print("Username: ");
             user = Input.lerString();
@@ -77,6 +77,7 @@ public class Interface {
                     System.err.println(s.getMessage());
                 }
             } while (menumain.getOpcao() != 0);
+            c.logout(user);
         }
     }
 
