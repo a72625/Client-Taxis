@@ -169,7 +169,7 @@ public class Interface {
                 System.out.println("Chegou ao local de partida, para confirmar pressione enter \n");
                 do {
                     chegou = Input.lerString();
-                } while (!chegou.equals("\n"));
+                } while (!chegou.equals(""));
                 c.chegouPartidaRespostaPassageiro(codViagem);
             }
             String[] chegouDestino = c.chegouDestinoPassageiro(codViagem);
@@ -181,7 +181,7 @@ public class Interface {
                     
                 do {
                     chegou = Input.lerString();
-                } while (!chegou.equals("\n"));
+                } while (!chegou.equals(""));
                 c.chegouDestinoRespostaPassageiro(codViagem);
             }
         } else {
@@ -218,16 +218,16 @@ public class Interface {
                     + anunDispMostra[3] + "\nCoordenadas do local de partida: (" + anunDispMostra[4] + "," + anunDispMostra[5]
                     + ")\nCoordenadas da do local de destino : (" + anunDispMostra[6] + "," + anunDispMostra[7] + ")");
 
-            System.out.println("Quando o condutor tiver chegado ao local de partida escreva \"cheguei\"\n");
+            System.out.println("Quando o condutor tiver chegado ao local de partida pressione enter\n");
             do {
                 chegou = Input.lerString();
-            } while (!chegou.equals("cheguei"));
+            } while (!chegou.equals(""));
             c.chegouPartidaCondutor(codigoViagem);
             if (c.chegouPartidaRespostaCondutor(codigoViagem)) {
-                System.out.println("Quando o condutor tiver chegado ao local de destino escreva \"cheguei\"\n");
+                System.out.println("Quando o condutor tiver chegado ao local de destino pressione enter\n");
                 do {
                     chegou = Input.lerString();
-                } while (!chegou.equals("cheguei"));
+                } while (!chegou.equals(""));
 
                 System.out.print("Insira o preco do transporte: \n");
                 preco = Input.lerFloat();
