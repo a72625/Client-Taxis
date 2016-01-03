@@ -5,10 +5,7 @@ package Cliente;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import java.io.IOException;
 import static java.lang.Math.floor;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -137,8 +134,9 @@ public class Interface {
         y = Input.lerInt();
         int codViagem;
         String chegou;
+        System.out.println("A aguardar um condutor disponivel...");
         resposta = c.solViagem(user, x_0, y_0, x, y);
-
+        
         if (resposta != null) {
             codViagem = Integer.parseInt(resposta[2]);
 
@@ -193,7 +191,9 @@ public class Interface {
         mat = Input.lerString();
         System.out.println("Insira o modelo do veiculo");
         mod = Input.lerString();
+        System.out.println("A aguardar um passageiro disponivel...");
         anunDispMostra = c.anunDisp1(user, mat, mod, x, y);
+        
         if (anunDispMostra != null) {
             codigoViagem = Integer.parseInt(anunDispMostra[2]);
             System.out.println("Anuncio de disponibilidade realizado com sucesso\n");
@@ -248,8 +248,9 @@ public class Interface {
         x = Input.lerInt();
         System.out.print("y = ");
         y = Input.lerInt();
-
+        System.out.println("A aguardar um passageiro disponivel...");
         anunDispMostra = c.anunDisp1(user, mat, mod, x, y);
+        
         if (anunDispMostra != null) {
             codigoViagem = Integer.parseInt(anunDispMostra[2]);
             System.out.println("Anuncio de disponibilidade realizado com sucesso\n");
@@ -298,7 +299,7 @@ public class Interface {
         int codigoViagem;
 
         String[] anunDispMostra = null;
-
+        System.out.println("A aguardar um passageiro disponivel...");
         anunDispMostra = c.anunDisp1(user, mat, mod, x, y);
         if (anunDispMostra != null) {
             codigoViagem = Integer.parseInt(anunDispMostra[2]);
