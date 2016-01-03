@@ -271,14 +271,18 @@ public class Client {
         out.println(6 + "," + "ok" + "," + codViagem);
     }
 
-    public boolean chegouDestinoPassageiro(int codViagem) throws myException {
+    public String[] chegouDestinoPassageiro(int codViagem) throws myException {
         String sResposta = "";
         try {
-            sResposta = in.readLine();   // chegou ao local de destino
+            sResposta = in.readLine();   // chegou ao local de destino,preco,codigoviagem
         } catch (IOException ex) {
             throw new myException("Não foi possível obter resposta do servidor");
         } finally {
-            return response(sResposta);
+            if (response(sResposta)) {
+                return sResposta.split(",");
+            } else {
+                return null;
+            }
         }
     }
 

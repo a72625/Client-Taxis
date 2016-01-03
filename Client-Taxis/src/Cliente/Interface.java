@@ -172,9 +172,11 @@ public class Interface {
                 } while (!chegou.equals("ok"));
                 c.chegouPartidaRespostaPassageiro(codViagem);
             }
+            String [] chegouDestino = c.chegouDestinoPassageiro(codViagem); 
 
-            if (c.chegouDestinoPassageiro(codViagem)) {
-                System.out.println("Chegou ao local de destino, para confirmar pressione \"ok\" \n");
+            if (chegouDestino!=null) {
+                float preco = Integer.parseInt(chegouDestino[2]);
+                System.out.println("Chegou ao local de destino e a viagem, teve um custo de" +preco+ "€,para confirmar pressione \"ok\" \n");
                 do {
                     chegou = Input.lerString();
                 } while (!chegou.equals("ok"));
