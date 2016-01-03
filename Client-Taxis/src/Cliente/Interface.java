@@ -166,10 +166,10 @@ public class Interface {
                     + newtime2 + "\nPreço Estimado: " + resposta[7] + "€");
 
             if (c.chegouPartidaPassageiro(codViagem)) {
-                System.out.println("Chegou ao local de partida, para confirmar pressione \"ok\" \n");
+                System.out.println("Chegou ao local de partida, para confirmar pressione enter \n");
                 do {
                     chegou = Input.lerString();
-                } while (!chegou.equals("ok"));
+                } while (!chegou.equals("\n"));
                 c.chegouPartidaRespostaPassageiro(codViagem);
             }
             String[] chegouDestino = c.chegouDestinoPassageiro(codViagem);
