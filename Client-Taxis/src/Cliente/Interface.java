@@ -82,6 +82,7 @@ public class Interface {
                 System.err.println(s.getMessage());
             }
         } while (menuMain.getOpcao() != 0);
+        this.start();
         try {
             c.logout(user);
         } catch (myException ex) {
