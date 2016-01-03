@@ -21,9 +21,9 @@ public class Client {
     private BufferedReader in;
     private PrintWriter out;
 
-    public Client(int porta) throws IOException {
+    public Client(int porta, String ip) throws IOException {
         try {
-            clientSck = new Socket("localhost", porta);
+            clientSck = new Socket(ip, porta);
         } catch (java.net.ConnectException a) {
             throw new IOException("Servidor não disponível");
         }

@@ -15,10 +15,13 @@ public class ClientMain {
 
     public static void main(String[] args) {
         int port;
-        if (args.length == 0) {
+        String ip;
+        if (args.length < 2) {
             port = 2000;//2000 por omissao
-            System.out.println("Atribuída porta 2000.");
+            ip = "localhost";
+            System.out.println("Atribuída porta 2000 no localhost.");
         } else {
+            ip = args[1];
             try {
                 port = Integer.parseInt(args[0]);
             } catch (NumberFormatException e) {
@@ -27,7 +30,7 @@ public class ClientMain {
             }
         }
         try {
-            Client u = new Client(port);
+            Client u = new Client(port,ip);
             Interface ui = new Interface(u);
             ui.start();
             u.close();
