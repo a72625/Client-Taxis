@@ -253,9 +253,11 @@ public class Interface {
             "Registar"};
 
         String[] main = {"Solicitar viagem",
-            "Anunciar disponibilidade",
-            "Logout"};
+            "Anunciar disponibilidade"};
 
+        String[] anunDisp ={"Voltar a anunciar disponibilidade neste local",
+            "Voltar a anunciar disponibilidade noutro local",};
+        
         menulogreg = new Menu(logreg);
         menumain = new Menu(main);
     }
