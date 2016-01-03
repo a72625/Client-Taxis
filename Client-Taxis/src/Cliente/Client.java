@@ -118,7 +118,7 @@ public class Client {
                 resposta = true;
                 break;
             case "user ja existe":
-                throw new myException(mensagem);
+                throw new myException("Não foi possivel efectuar o registo. Username já existente");
             default:
                 throw new myException("Não foi possível efectuar a operação. Tente Novamente");
         }

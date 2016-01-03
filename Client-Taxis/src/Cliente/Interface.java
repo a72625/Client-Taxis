@@ -102,8 +102,6 @@ public class Interface {
         if (registar) {
             System.out.println("\nRegisto efectuado com sucesso");
             start();
-        } else {
-            System.err.println("Não foi possivel registar");
         }
     }
 
@@ -196,7 +194,6 @@ public class Interface {
         
         if (anunDispMostra != null) {
             codigoViagem = Integer.parseInt(anunDispMostra[2]);
-            System.out.println("Anuncio de disponibilidade realizado com sucesso\n");
             System.out.println("Já foi atribuida uma viagem!\nCódigo de Viagem: " + anunDispMostra[2] + "\nNome do Passageiro: "
                     + anunDispMostra[3] + "\nCoordenadas do local de partida: (" + anunDispMostra[4] + "," + anunDispMostra[5]
                     + ")\nCoordenadas da do local de destino : (" + anunDispMostra[6] + "," + anunDispMostra[7] + ")");
