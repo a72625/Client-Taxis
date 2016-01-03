@@ -177,7 +177,8 @@ public class Interface {
             if (chegouDestino != null) {
                 float preco = Float.parseFloat(chegouDestino[2]);
                 System.out.println("Viagem concluída. Custo: " +preco);
-                    System.out.println("Para confirmar pressione enter");
+                    System.out.println("Para confirmar pressione enter\n");
+                    
                 do {
                     chegou = Input.lerString();
                 } while (!chegou.equals("\n"));
