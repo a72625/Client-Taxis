@@ -15,8 +15,8 @@ import static java.lang.Math.floor;
 public class Interface {
 
     public Menu menuLogReg, menuMain, menuAnunDisp;
-    private String user,mod,mat;
-    private int x,y;
+    private String user, mod, mat;
+    private int x, y;
     private Client c;
 
     public Interface(Client c) {
@@ -57,32 +57,35 @@ public class Interface {
         } catch (myException s) {
             System.err.println(s.getMessage());
         }
-
         if (login) {
             System.out.println("\nLogin realizado com sucesso");
-            do {
-                try {
-                    menuMain.executa();
-                    switch (menuMain.getOpcao()) {
-                        case 1:
-                            solViagem();
-                            break;
-                        case 2:
-                            anunDisp();
-                            break;
-                        default:
-                            break;
-                    }
+            this.menuPrincipal();
+        }
+    }
 
-                } catch (myException s) {
-                    System.err.println(s.getMessage());
-                }
-            } while (menuMain.getOpcao() != 0);
+    protected void menuPrincipal() {
+        do {
             try {
-                c.logout(user);
-            } catch (myException ex) {
-                System.err.println(ex.getMessage());
+                menuMain.executa();
+                switch (menuMain.getOpcao()) {
+                    case 1:
+                        solViagem();
+                        break;
+                    case 2:
+                        anunDisp();
+                        break;
+                    default:
+                        break;
+                }
+
+            } catch (myException s) {
+                System.err.println(s.getMessage());
             }
+        } while (menuMain.getOpcao() != 0);
+        try {
+            c.logout(user);
+        } catch (myException ex) {
+            System.err.println(ex.getMessage());
         }
     }
 
@@ -171,7 +174,7 @@ public class Interface {
         } else {
             System.err.println("Não foi possivel solicitar viagem");
         }
-        menuMain.executa();
+        menuPrincipal();
 
     }
 
@@ -231,7 +234,7 @@ public class Interface {
             System.err.println("Ocorreu um erro!");
             this.start();
         }
-        menuMain.executa();
+        menuPrincipal();
     }
 
     protected void anunDispMesmoLocal() throws myException {
@@ -242,7 +245,7 @@ public class Interface {
         int codigoViagem;
 
         String[] anunDispMostra = null;
-        
+
         anunDispMostra = c.anunDisp1(user, mat, mod, x, y);
         if (anunDispMostra != null) {
             codigoViagem = Integer.parseInt(anunDispMostra[2]);
@@ -278,7 +281,7 @@ public class Interface {
             System.err.println("Ocorreu um erro!");
             this.start();
         }
-        menuMain.executa();
+        menuPrincipal();
     }
 
     protected void menuAnunDisp() throws myException {
@@ -295,7 +298,7 @@ public class Interface {
                     break;
             }
         } while (menuAnunDisp.getOpcao() != 0);
-        menuMain.executa();
+        menuPrincipal();
     }
 
     protected void carregarMenus() {
